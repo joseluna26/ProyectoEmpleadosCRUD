@@ -1,10 +1,10 @@
 package models;
 
-public class genero {
+public class Genero {
     private Long id;
     private String nombre;
     
-    public genero(Long id, String nombre) {
+    public Genero(Long id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
