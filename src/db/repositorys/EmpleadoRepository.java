@@ -1,5 +1,5 @@
-package db.repositorys;
+// package db.repositorys;
 
-public class EmpleadoRepository {
+// public class EmpleadoRepository {
     
-}
+// }
