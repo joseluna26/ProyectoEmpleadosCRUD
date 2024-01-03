@@ -60,8 +60,19 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
 
     @Override
     public void modificar(Empleado entidad) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'modificar'");
+        try (Connection conexion = ConexionDB.obtenerConexion()) {
+            String q = "UPDATE empleados SET nombre = ? WHERE idEmpleado = ?";
+            try (PreparedStatement preparedStatement = conexion.prepareStatement(q)) {
+                preparedStatement.setString(1, entidad.getNombre());
+                preparedStatement.setLong(2, entidad.getId());
+                preparedStatement.executeUpdate();
+                System.out.println("Se modificó el nombre del Empleado");
+            } catch (Exception e) {
+                System.out.println("No se modificó el registro del Empleado" + e);
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     @Override
@@ -72,9 +83,9 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
 
                 preparedStatement.setLong(1, entidad.getId());
                 preparedStatement.executeUpdate();
-                System.out.println("Se eliminó el registro");
+                System.out.println("Se eliminó el Empleado");
             } catch (Exception e) {
-                System.out.println("No se leiminó nada: " + e);
+                System.out.println("No se leiminó registro de empleado");
             }
         } catch (Exception e) {
 

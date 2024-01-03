@@ -36,10 +36,16 @@ public class App {
         // "alberto@gmail.com", null, g);
         // empleadoRepository.agregar(em);
 
-        // Eliminar Empleado//
+        // Eliminar Empleado //
+        // EmpleadoRepository empleadoRepository = new EmpleadoRepository();
+        // Empleado em = empleadoRepository.recuperarId(1L);
+        // empleadoRepository.eliminar(em);
+        // System.out.println(em);
+        
+        // Modificar Empleado //
         EmpleadoRepository empleadoRepository = new EmpleadoRepository();
         Empleado em = empleadoRepository.recuperarId(1L);
-        empleadoRepository.eliminar(em);
-        System.out.println(em);
+        em.setNombre("Carlos");
+        empleadoRepository.modificar(em);
     }
 }
