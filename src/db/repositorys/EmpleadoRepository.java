@@ -3,12 +3,17 @@ package db.repositorys;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
+
+
 
 import db.conexion.ConexionDB;
 import interfaces.RepositoryInterface;
 import models.Empleado;
+import models.Genero;
 
 public class EmpleadoRepository implements RepositoryInterface<Empleado> {
 
@@ -32,8 +37,25 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
 
     @Override
     public List<Empleado> recuperarTodos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'recuperarTodos'");
+        try (Connection conexion = ConexionDB.obtenerConexion()) {
+            String q = "SELECT * FROM empleados";
+            try (Statement statement = conexion.createStatement();
+                    ResultSet resultSet = statement.executeQuery(q)) {
+
+                List<Empleado> lista = new ArrayList<>();
+                while (resultSet.next()) {
+                    Long id = resultSet.getLong("idEmpleado");
+                    String nombre = resultSet.getString("nombre");
+                    Empleado em = new Empleado(id, nombre);
+                    lista.add(em);
+                }
+                return lista;
+            } catch (Exception e) {
+
+            }
+        } catch (Exception e) {
+        }
+        return null;
     }
 
     @Override

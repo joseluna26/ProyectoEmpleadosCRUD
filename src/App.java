@@ -1,5 +1,7 @@
 // import java.util.List;
 
+import java.util.List;
+
 import db.repositorys.EmpleadoRepository;
 // import db.repositorys.GeneroRepository;
 import models.Empleado;
@@ -28,7 +30,7 @@ public class App {
 
         // generoRepository.eliminar(g);
 
-        // Agregar Empleado
+        // Agregar Empleado //
         // EmpleadoRepository empleadoRepository = new EmpleadoRepository();
         // Genero g = generoRepository.recuperarId(1L);
         // System.out.println(g);
@@ -43,9 +45,17 @@ public class App {
         // System.out.println(em);
         
         // Modificar Empleado //
+        // EmpleadoRepository empleadoRepository = new EmpleadoRepository();
+        // Empleado em = empleadoRepository.recuperarId(1L);
+        // em.setNombre("Carlos");
+        // empleadoRepository.modificar(em);
+        
+        // Recuperar empleados
         EmpleadoRepository empleadoRepository = new EmpleadoRepository();
-        Empleado em = empleadoRepository.recuperarId(1L);
-        em.setNombre("Carlos");
-        empleadoRepository.modificar(em);
+        List<Empleado> lista = empleadoRepository.recuperarTodos();
+
+        for (Empleado empleado : lista) {
+            System.out.println("nombre: " + empleado.getNombre());
+        }
     }
 }
