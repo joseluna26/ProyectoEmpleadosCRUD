@@ -7,7 +7,7 @@ public class ConexionDB {
     private static Connection conexion;
     private static String user = "root";
     private static String pass = "admin";
-    private static String db = "empleados";
+    private static String db = "crudempleados";
     private static int port = 3306;
     private static String url = "jdbc:mysql://localhost:" + port + "/" + db;
 

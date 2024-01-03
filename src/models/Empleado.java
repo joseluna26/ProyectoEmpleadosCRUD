@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Empleado {
     
-    private Long id;
+    private Long idEmpleado;
     private String nombre;
     private String domicilio;
     private String telefono;
@@ -13,9 +13,14 @@ public class Empleado {
     private Genero genero;
     
     
+    public Empleado(Long id, String nombre) {
+        this.idEmpleado = id;
+        this.nombre = nombre;
+    }
+
     public Empleado(Long id, String nombre, String domicilio, String telefono, String email, Date fechaNacimiento,
             Genero genero) {
-        this.id = id;
+        this.idEmpleado = id;
         this.nombre = nombre;
         this.domicilio = domicilio;
         this.telefono = telefono;
@@ -25,11 +30,11 @@ public class Empleado {
     }
 
     public Long getId() {
-        return id;
+        return idEmpleado;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.idEmpleado = id;
     }
 
     public String getNombre() {
@@ -78,6 +83,12 @@ public class Empleado {
 
     public void setGenero(Genero genero) {
         this.genero = genero;
+    }
+
+    @Override
+    public String toString() {
+        return "Empleado [idEmpleado=" + idEmpleado + ", nombre=" + nombre + ", domicilio=" + domicilio + ", telefono="
+                + telefono + ", email=" + email + ", fechaNacimiento=" + fechaNacimiento + ", genero=" + genero + "]";
     }
 
     
