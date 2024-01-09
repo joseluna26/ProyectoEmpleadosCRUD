@@ -13,7 +13,7 @@ import java.util.List;
 import db.conexion.ConexionDB;
 import interfaces.RepositoryInterface;
 import models.Empleado;
-import models.Genero;
+// import models.Genero;
 
 public class EmpleadoRepository implements RepositoryInterface<Empleado> {
 
