@@ -3,6 +3,8 @@
 // import java.util.List;
 
 // import db.repositorys.EmpleadoRepository;
+import java.util.List;
+
 import db.repositorys.LoginRepository;
 // import db.repositorys.GeneroRepository;
 // import models.Empleado;
@@ -51,10 +53,9 @@ public class App {
         // em.setNombre("Carlos");
         // empleadoRepository.modificar(em);
 
-        // Recuperar empleados
+        // Recuperar empleados //
         // EmpleadoRepository empleadoRepository = new EmpleadoRepository();
         // List<Empleado> lista = empleadoRepository.recuperarTodos();
-
         // for (Empleado empleado : lista) {
         // System.out.println("nombre: " + empleado.getNombre());
         // }
@@ -77,13 +78,20 @@ public class App {
 
 
         // Modificar Login //
+        // LoginRepository loginRepository = new LoginRepository();
+        // Login lo = loginRepository.recuperarId(1L);
+        // lo.setNombre("Manuel Luna Velázquez");
+        // lo.setEmail("lunav64@gmail.com");
+        // lo.setUsuario("lunavm");
+        // loginRepository.modificar(lo);
+        
+        // Recuperar login TODOS //
         LoginRepository loginRepository = new LoginRepository();
-        Login lo = loginRepository.recuperarId(1L);
-        lo.setNombre("Manuel Luna Velázquez");
-        lo.setEmail("lunav64@gmail.com");
-        lo.setUsuario("lunavm");
-        loginRepository.modificar(lo);
-    }
-    
+        List<Login> lista = loginRepository.recuperarTodos();
+        for (Login login : lista) {
+        System.out.println("nombre: " + login.getNombre());
+        }
 
+
+    }
 }

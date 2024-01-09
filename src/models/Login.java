@@ -7,7 +7,14 @@ public class Login {
     private String email;
     private String usuario;
     private String contrasenia;
+
     
+    
+    public Login(Long id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
     public Login(Long id, String nombre, String email, String usuario, String contrasenia) {
         this.id = id;
         this.nombre = nombre;

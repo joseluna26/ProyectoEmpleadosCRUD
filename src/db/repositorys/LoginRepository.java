@@ -3,6 +3,8 @@ package db.repositorys;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import db.conexion.ConexionDB;
@@ -31,8 +33,26 @@ public class LoginRepository implements RepositoryInterface<Login> {
 
     @Override
     public List<Login> recuperarTodos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'recuperarTodos'");
+        try (Connection conexion = ConexionDB.obtenerConexion()) {
+            String q = "SELECT * FROM login";
+            try (Statement statement = conexion.createStatement();
+                    ResultSet resultSet = statement.executeQuery(q)) {
+
+                List<Login> lista = new ArrayList<>();
+                while (resultSet.next()) {
+                    Long id = resultSet.getLong("id");
+                    String nombre = resultSet.getString("nombre");
+                    Login lo = new Login(id, nombre);
+                    lista.add(lo);
+                }
+                return lista;
+            } catch (Exception e) {
+
+            }
+        } catch (Exception e) {
+
+        }
+        return null;
     }
 
     @Override
