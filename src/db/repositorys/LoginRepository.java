@@ -62,8 +62,19 @@ public class LoginRepository implements RepositoryInterface<Login> {
 
     @Override
     public void eliminar(Login entidad) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'eliminar'");
+        try (Connection conexion = ConexionDB.obtenerConexion()) {
+            String q = "DELETE FROM login WHERE id = ?";
+            try (PreparedStatement preparedStatement = conexion.prepareStatement(q)) {
+
+                preparedStatement.setLong(1, entidad.getId());
+                preparedStatement.executeUpdate();
+                System.out.println("Se eliminó login");
+            } catch (Exception e) {
+                System.out.println("No Se pudo borrar login");
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     private Login dameEntidadResultSet(ResultSet resultSet) {
