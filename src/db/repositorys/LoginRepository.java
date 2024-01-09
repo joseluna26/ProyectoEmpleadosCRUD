@@ -56,8 +56,19 @@ public class LoginRepository implements RepositoryInterface<Login> {
 
     @Override
     public void modificar(Login entidad) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'modificar'");
+        try (Connection conexion = ConexionDB.obtenerConexion()) {
+            String q = "UPDATE login SET nombre = ? WHERE id = ?";
+            try (PreparedStatement preparedStatement = conexion.prepareStatement(q)) {
+                preparedStatement.setString(1, entidad.getNombre());
+                preparedStatement.setLong(2, entidad.getId());
+                preparedStatement.executeUpdate();
+                System.out.println("Se modificó el login");
+            } catch (Exception e) {
+                System.out.println("No se cambio nada del login");
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     @Override

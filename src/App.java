@@ -21,6 +21,7 @@ public class App {
         // System.out.println("nombre: " + genero.getNombre());
         // }
 
+        // GeneroRepository generoRepository = new GeneroRepository();
         // Genero g = generoRepository.recuperarId(1L);
         // g.setNombre("M");
         // generoRepository.modificar(g);
@@ -60,7 +61,8 @@ public class App {
 
         // Agregar Login //
         // LoginRepository loginRepository = new LoginRepository();
-        // Login l1 = new Login(null, "Manuel", "manuel@gmail.com", "manuel_luna", "641016");
+        // Login l1 = new Login(null, "Manuel", "manuel@gmail.com", "manuel_luna",
+        // "641016");
         // Login l2 = new Login(null, "Luis", "luis@gmail.com", "jluna", "123456");
         // Login l3 = new Login(null, "Carlos", "carlos@gmail.com", "lunaC", "631020");
         // loginRepository.agregar(l1);
@@ -72,5 +74,16 @@ public class App {
         // Login lo = loginRepository.recuperarId(1L);
         // loginRepository.eliminar(lo);
         // System.out.println(lo);
+
+
+        // Modificar Login //
+        LoginRepository loginRepository = new LoginRepository();
+        Login lo = loginRepository.recuperarId(1L);
+        lo.setNombre("Manuel Luna Velázquez");
+        lo.setEmail("lunav64@gmail.com");
+        lo.setUsuario("lunavm");
+        loginRepository.modificar(lo);
     }
+    
+
 }
