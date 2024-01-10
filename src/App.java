@@ -3,13 +3,18 @@
 // import java.util.List;
 
 // import db.repositorys.EmpleadoRepository;
-import java.util.List;
+// import java.util.List;
 
-import db.repositorys.LoginRepository;
+// import db.repositorys.LoginRepository;
 // import db.repositorys.GeneroRepository;
 // import models.Empleado;
 // import models.Genero;
-import models.Login;
+// import models.Login;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+import screens.FraLogin;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -76,7 +81,6 @@ public class App {
         // loginRepository.eliminar(lo);
         // System.out.println(lo);
 
-
         // Modificar Login //
         // LoginRepository loginRepository = new LoginRepository();
         // Login lo = loginRepository.recuperarId(1L);
@@ -84,14 +88,15 @@ public class App {
         // lo.setEmail("lunav64@gmail.com");
         // lo.setUsuario("lunavm");
         // loginRepository.modificar(lo);
-        
-        // Recuperar login TODOS //
-        LoginRepository loginRepository = new LoginRepository();
-        List<Login> lista = loginRepository.recuperarTodos();
-        for (Login login : lista) {
-        System.out.println("nombre: " + login.getNombre());
-        }
 
+        // Recuperar login TODOS //
+        // LoginRepository loginRepository = new LoginRepository();
+        // List<Login> lista = loginRepository.recuperarTodos();
+        // for (Login login : lista) {
+        // System.out.println("nombre: " + login.getNombre());
+        // }
+
+        SwingUtilities.invokeLater(() -> new FraLogin());
 
     }
 }
