@@ -8,4 +8,8 @@ public class FontManager {
     public static Font getDefaultFont() {
         return DEFAULT_FONT;
     }
+
+    public static Font getCustomFont(int size) {
+        return new Font("Arial", Font.PLAIN, size);
+    }
 }
