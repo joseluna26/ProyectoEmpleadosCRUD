@@ -8,23 +8,25 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import helpers.FontManager;
 
-public class FraLogin extends JFrame {
+public class FraRegistro extends JFrame{
 
-    JLabel lblTitulo, lblUsuario, lblContra;
-    JTextField txtUsuario;
+    JLabel lblTitulo, lblNombre, lblEmail, lblUsuario, lblContra;
+    JTextField txtNombre, txtEmail, txtUsuario;
     JPasswordField txtContra;
-    JButton cmdIniciar, cmdRegistrar;
+    JButton cmdRegistrar;
+    JRadioButton radContra;
 
-    public FraLogin() {
+    public FraRegistro(){
 
         // Ventana
-        super("Inicia Sesión");
-        setSize(300, 200);
+        super("Registro");
+        setSize(300, 310);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -35,46 +37,70 @@ public class FraLogin extends JFrame {
 
         setVisible(true);
 
-    }
 
-    // Controles
+    }
+    
+// Controles
     public void controles() {
 
         Font defaultFont = FontManager.getDefaultFont();
-        lblTitulo = new JLabel("Iniciar Sesión", SwingConstants.CENTER);
+        lblTitulo = new JLabel("Registro", SwingConstants.CENTER);
         lblTitulo.setBounds(0, 12, 300, 20);
         lblTitulo.setFont(defaultFont);
         add(lblTitulo);
         
+        lblNombre = new JLabel("Nombre:", SwingConstants.LEFT);
+        lblNombre.setBounds(45, 45, 300, 20);
+        lblNombre.setFont(defaultFont);
+        add(lblNombre);
+        
+        txtNombre = new JTextField();
+        txtNombre.setBounds(110, 46, 150, 22);
+        txtNombre.setFont(defaultFont);
+        add(txtNombre);
+
+        lblEmail = new JLabel("Email:", SwingConstants.LEFT);
+        lblEmail.setBounds(61, 87, 300, 20);
+        lblEmail.setFont(defaultFont);
+        add(lblEmail);
+        
+        txtEmail = new JTextField();
+        txtEmail.setBounds(110, 87, 150, 22);
+        txtEmail.setFont(defaultFont);
+        add(txtEmail);
+        
         lblUsuario = new JLabel("Usuario:", SwingConstants.LEFT);
-        lblUsuario.setBounds(45, 45, 300, 20);
+        lblUsuario.setBounds(49, 128, 300, 20);
         lblUsuario.setFont(defaultFont);
         add(lblUsuario);
-
+        
         txtUsuario = new JTextField();
-        txtUsuario.setBounds(110, 46, 150, 22);
+        txtUsuario.setBounds(110, 128, 150, 22);
         txtUsuario.setFont(defaultFont);
         add(txtUsuario);
-        
+
+
         lblContra = new JLabel("Contraseña:", SwingConstants.LEFT);
-        lblContra.setBounds(20, 87, 300, 20);
+        lblContra.setBounds(20, 169, 300, 20);
         lblContra.setFont(defaultFont);
         add(lblContra);
         
         txtContra = new JPasswordField();
-        txtContra.setBounds(110, 87, 150, 22);
+        txtContra.setBounds(150, 169, 110, 22);
         txtContra.setFont(defaultFont);
         add(txtContra);
         
-        cmdIniciar = new JButton("Iniciar");
-        cmdIniciar.setBounds(5, 125, 130, 25);
-        cmdIniciar.setFont(defaultFont);
-        add(cmdIniciar);
+        radContra = new JRadioButton();
+        radContra.setBounds(110, 169, 20, 22);
+        radContra.setFont(defaultFont);
+        add(radContra);
         
         cmdRegistrar = new JButton("Registrar");
-        cmdRegistrar.setBounds(145, 125, 130, 25);
+        cmdRegistrar.setBounds(150, 231, 110, 25);
         cmdRegistrar.setFont(defaultFont);
         add(cmdRegistrar);
 
     }
+
+
 }

@@ -11,10 +11,10 @@
 // import models.Genero;
 // import models.Login;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
+import javax.swing.SwingUtilities;
 import screens.FraLogin;
+import screens.FraRegistro;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -96,7 +96,9 @@ public class App {
         // System.out.println("nombre: " + login.getNombre());
         // }
 
-        SwingUtilities.invokeLater(() -> new FraLogin());
+        
+        // SwingUtilities.invokeLater(() -> new FraLogin());
+        SwingUtilities.invokeLater(() -> new FraRegistro());
 
     }
 }
