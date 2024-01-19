@@ -2,7 +2,6 @@ package screens;
 
 import java.awt.Font;
 import java.awt.Image;
-// import java.awt.List;
 import java.awt.event.*;
 import java.util.Date;
 import java.util.List;

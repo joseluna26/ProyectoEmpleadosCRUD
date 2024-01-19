@@ -12,7 +12,6 @@ public class Empleado {
     private Date fechaNacimiento;
     private Genero genero;
     
-    
     public Empleado(Integer id, String nombre) {
         this.idEmpleado = id;
         this.nombre = nombre;
@@ -90,10 +89,4 @@ public class Empleado {
         return "Empleado [idEmpleado=" + idEmpleado + ", nombre=" + nombre + ", domicilio=" + domicilio + ", telefono="
                 + telefono + ", email=" + email + ", fechaNacimiento=" + fechaNacimiento + ", genero=" + genero + "]";
     }
-
-    
-
-
-
-
 }

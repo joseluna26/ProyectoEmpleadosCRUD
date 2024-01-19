@@ -52,6 +52,7 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
 
             }
         } catch (Exception e) {
+            
         }
         return null;
     }
@@ -75,7 +76,6 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
         } catch (Exception e) {
 
         }
-
     }
 
     @Override

@@ -2,6 +2,8 @@ package screens;
 
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -62,6 +64,13 @@ public class FraRegistro extends JFrame{
         txtNombre.setFont(defaultFont);
         panel.add(txtNombre);
 
+        txtNombre.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cambiarFoco("txtNombre");
+            }
+        });
+
         lblEmail = new JLabel("Email:", SwingConstants.LEFT);
         lblEmail.setBounds(61, 87, 300, 20);
         lblEmail.setFont(defaultFont);
@@ -71,6 +80,13 @@ public class FraRegistro extends JFrame{
         txtEmail.setBounds(110, 87, 150, 22);
         txtEmail.setFont(defaultFont);
         panel.add(txtEmail);
+
+        txtEmail.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cambiarFoco("txtEmail");
+            }
+        });
         
         lblUsuario = new JLabel("Usuario:", SwingConstants.LEFT);
         lblUsuario.setBounds(49, 128, 300, 20);
@@ -82,6 +98,12 @@ public class FraRegistro extends JFrame{
         txtUsuario.setFont(defaultFont);
         panel.add(txtUsuario);
 
+        txtUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cambiarFoco("txtUsuario");
+            }
+        });
 
         lblContra = new JLabel("Contraseña:", SwingConstants.LEFT);
         lblContra.setBounds(20, 169, 300, 20);
@@ -92,6 +114,13 @@ public class FraRegistro extends JFrame{
         txtContra.setBounds(150, 169, 110, 22);
         txtContra.setFont(defaultFont);
         panel.add(txtContra);
+
+        txtContra.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cambiarFoco("txtContra");
+            }
+        });
         
         radContra = new JRadioButton();
         radContra.setBounds(110, 169, 20, 22);
@@ -102,5 +131,24 @@ public class FraRegistro extends JFrame{
         cmdRegistrar.setBounds(150, 231, 110, 25);
         cmdRegistrar.setFont(defaultFont);
         panel.add(cmdRegistrar);
+    }
+
+    private void cambiarFoco(String nomcontrol) {
+        switch (nomcontrol) {
+            case "txtNombre":
+                txtEmail.requestFocus();
+                break;
+            case "txtEmail":
+                txtUsuario.requestFocus();
+                break;
+            case "txtUsuario":
+                txtContra.requestFocus();
+                break;
+            case "txtContra":
+                cmdRegistrar.requestFocus();
+                break;
+            default:
+                break;
+        }
     }
 }

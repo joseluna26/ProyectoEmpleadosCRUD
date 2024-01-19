@@ -35,7 +35,6 @@ public class FraLogin extends JFrame {
         controles();
 
         setVisible(true);
-
     }
 
     // Controles
@@ -61,6 +60,13 @@ public class FraLogin extends JFrame {
         txtUsuario.setFont(defaultFont);
         panel.add(txtUsuario);
 
+        txtUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                txtContra.requestFocus();
+            }
+        });
+
         // txtUsuario.getDocument().addDocumentListener(new DocumentListener() {
         //     @Override
         //     public void insertUpdate(DocumentEvent e) {
@@ -85,6 +91,13 @@ public class FraLogin extends JFrame {
         txtContra.setBounds(110, 87, 150, 22);
         txtContra.setFont(defaultFont);
         panel.add(txtContra);
+
+        txtContra.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cmdIniciar.requestFocus();
+            }
+        });
 
         // txtContra.getDocument().addDocumentListener(new DocumentListener() {
         //     @Override
