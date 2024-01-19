@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Empleado {
     
-    private Long idEmpleado;
+    private Integer idEmpleado;
     private String nombre;
     private String domicilio;
     private String telefono;
@@ -13,12 +13,12 @@ public class Empleado {
     private Genero genero;
     
     
-    public Empleado(Long id, String nombre) {
+    public Empleado(Integer id, String nombre) {
         this.idEmpleado = id;
         this.nombre = nombre;
     }
 
-    public Empleado(Long id, String nombre, String domicilio, String telefono, String email, Date fechaNacimiento,
+    public Empleado(Integer id, String nombre, String domicilio, String telefono, String email, Date fechaNacimiento,
             Genero genero) {
         this.idEmpleado = id;
         this.nombre = nombre;
@@ -29,11 +29,11 @@ public class Empleado {
         this.genero = genero;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return idEmpleado;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.idEmpleado = id;
     }
 

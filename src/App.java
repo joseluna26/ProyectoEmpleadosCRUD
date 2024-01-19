@@ -1,6 +1,3 @@
-// import java.util.List;
-
-// import java.util.List;
 
 // import db.repositorys.EmpleadoRepository;
 // import java.util.List;
@@ -14,8 +11,8 @@
 
 import javax.swing.SwingUtilities;
 
-import screens.FraEmpleados;
-// import screens.FraLogin;
+// import screens.FraEmpleados;
+import screens.FraLogin;
 // import screens.FraRegistro;
 
 public class App {
@@ -99,9 +96,9 @@ public class App {
         // }
 
         
-        // SwingUtilities.invokeLater(() -> new FraLogin());
+        SwingUtilities.invokeLater(() -> new FraLogin());
         // SwingUtilities.invokeLater(() -> new FraRegistro());
-        SwingUtilities.invokeLater(() -> new FraEmpleados());
+        // SwingUtilities.invokeLater(() -> new FraEmpleados());
 
     }
 }

@@ -8,8 +8,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 import db.conexion.ConexionDB;
 import interfaces.RepositoryInterface;
 import models.Empleado;
@@ -44,7 +42,7 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
 
                 List<Empleado> lista = new ArrayList<>();
                 while (resultSet.next()) {
-                    Long id = resultSet.getLong("idEmpleado");
+                    Integer id = resultSet.getInt("idEmpleado");
                     String nombre = resultSet.getString("nombre");
                     Empleado em = new Empleado(id, nombre);
                     lista.add(em);
@@ -63,16 +61,16 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
         try (Connection conexion = ConexionDB.obtenerConexion()) {
             String query = "INSERT INTO empleados VALUES(null, ?, ?, ?, ?, ?, ?);";
             try (PreparedStatement ps = conexion.prepareStatement(query)) {
-                ps.setString(1, entidad.getNombre());
-                ps.setString(2, entidad.getDomicilio());
-                ps.setString(3, entidad.getTelefono());
-                ps.setString(4, entidad.getEmail());
-                ps.setDate(5, (Date) entidad.getFechaNacimiento());
-                ps.setLong(6, entidad.getGenero().getId());
+                ps.setLong(1, entidad.getGenero().getId());
+                ps.setString(2, entidad.getNombre());
+                ps.setString(3, entidad.getDomicilio());
+                ps.setString(4, entidad.getTelefono());
+                ps.setString(5, entidad.getEmail());
+                ps.setDate(6, (Date) entidad.getFechaNacimiento());
                 ps.executeUpdate();
                 System.out.println("Se insertó " + entidad.getNombre() + " correctamente :)");
             } catch (Exception e) {
-                System.out.println("No se insertó nada :(" + e);
+                System.out.println("No se insertó al empleado :(" + e);
             }
         } catch (Exception e) {
 
@@ -88,7 +86,7 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
                 preparedStatement.setString(1, entidad.getNombre());
                 preparedStatement.setLong(2, entidad.getId());
                 preparedStatement.executeUpdate();
-                System.out.println("Se modificó el nombre del Empleado");
+                System.out.println("Se modificó la info del Empleado");
             } catch (Exception e) {
                 System.out.println("No se modificó el registro del Empleado" + e);
             }
@@ -115,12 +113,12 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
     }
 
     private Empleado dameEntidadResultSet(ResultSet resultSet) {
-        Long idEmpleado = null;
+        Integer idEmpleado = null;
         String nombre = null;
 
         try {
             while (resultSet.next()) {
-                idEmpleado = resultSet.getLong("IdEmpleado");
+                idEmpleado = resultSet.getInt("IdEmpleado");
                 nombre = resultSet.getString("nombre");
             }
             return new Empleado(idEmpleado, nombre);
