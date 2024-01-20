@@ -15,14 +15,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import helpers.FontManager;
 
-public class FraLogin extends JFrame {
+public class FrmLogin extends JFrame {
 
     JLabel lblTitulo, lblUsuario, lblContra;
     JTextField txtUsuario;
     JPasswordField txtContra;
     JButton cmdIniciar, cmdRegistrar;
 
-    public FraLogin() {
+    public FrmLogin() {
 
         // Ventana
         super("Inicia Sesión");
@@ -122,7 +122,7 @@ public class FraLogin extends JFrame {
 
         cmdIniciar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                FraEmpleados fraEmpleados = new FraEmpleados();
+                FrmEmpleados fraEmpleados = new FrmEmpleados();
                 fraEmpleados.setVisible(true);
             }
         });
@@ -135,8 +135,9 @@ public class FraLogin extends JFrame {
         cmdRegistrar.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                FraRegistro fraRegistro = new FraRegistro();
+                FrmRegistro fraRegistro = new FrmRegistro();
                 fraRegistro.setVisible(true);
+                setVisible(false);
             }
         });
 

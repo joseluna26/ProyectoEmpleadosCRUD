@@ -12,7 +12,7 @@
 import javax.swing.SwingUtilities;
 
 // import screens.FraEmpleados;
-import screens.FraLogin;
+import screens.FrmLogin;
 // import screens.FraRegistro;
 
 public class App {
@@ -96,7 +96,7 @@ public class App {
         // }
 
         
-        SwingUtilities.invokeLater(() -> new FraLogin());
+        SwingUtilities.invokeLater(() -> new FrmLogin());
         // SwingUtilities.invokeLater(() -> new FraRegistro());
         // SwingUtilities.invokeLater(() -> new FraEmpleados());
 

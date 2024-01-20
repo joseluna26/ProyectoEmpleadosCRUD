@@ -14,12 +14,11 @@ import models.Genero;
 public class GeneroRepository implements RepositoryInterface<Genero> {
 
     @Override
-    public Genero recuperarId(Long id) {
+    public Genero recuperarId(Long i) {
         try (Connection conexion = ConexionDB.obtenerConexion()) {
-            // Se desconecta cuando acaba el try
             String q = "SELECT * FROM generos WHERE idGenero = ?";
             try (PreparedStatement preparedStatement = conexion.prepareStatement(q)) {
-                preparedStatement.setLong(1, id);
+                preparedStatement.setLong(1, i);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 return dameEntidadResultSet(resultSet);
             } catch (Exception e) {

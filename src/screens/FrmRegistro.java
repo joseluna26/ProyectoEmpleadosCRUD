@@ -17,7 +17,7 @@ import javax.swing.SwingConstants;
 
 import helpers.FontManager;
 
-public class FraRegistro extends JFrame{
+public class FrmRegistro extends JFrame{
 
     JLabel lblTitulo, lblNombre, lblEmail, lblUsuario, lblContra;
     JTextField txtNombre, txtEmail, txtUsuario;
@@ -25,7 +25,7 @@ public class FraRegistro extends JFrame{
     JButton cmdRegistrar;
     JRadioButton radContra;
 
-    public FraRegistro(){
+    public FrmRegistro(){
 
         // Ventana
         super("Registro");

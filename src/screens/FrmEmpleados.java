@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -24,7 +25,7 @@ import helpers.FontManager;
 import models.Empleado;
 import models.Genero;
 
-public class FraEmpleados extends JFrame {
+public class FrmEmpleados extends JFrame {
 
     JLabel lblTitulo, lblEmpleados, lblNombre, lblDomicilio, lblTelefono, lblEmail, lblFechaNac, lblGenero;
     JTextField txtEmpleados, txtNombre, txtDomicilio, txtTelefono, txtEmail, txtFechaNac, txtGenero;
@@ -34,7 +35,7 @@ public class FraEmpleados extends JFrame {
     JButton cmdBuscar, cmdGuardar, cmdModificar, cmdEliminar, cmdLimpiar;
     JDateChooser dateChooser;
 
-    public FraEmpleados() {
+    public FrmEmpleados() {
 
         // Ventana
         super("Control de Empleados");
@@ -74,7 +75,7 @@ public class FraEmpleados extends JFrame {
         EmpleadoRepository empleadoRepository = new EmpleadoRepository();
         List<Empleado> listaEmp = empleadoRepository.recuperarTodos();
         for (Empleado empleado : listaEmp) {
-        cboNumEmp.addItem(empleado.getId());
+            cboNumEmp.addItem(empleado.getId());
         }
 
         cmdBuscar = new JButton("Buscar");
@@ -147,7 +148,13 @@ public class FraEmpleados extends JFrame {
         txtEmail.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cambiarFoco("txtEmail");
+
+                if (txtEmail.getText().contains("@") && txtEmail.getText().contains(".")) {
+                    cambiarFoco("txtEmail");
+                } else {
+                    JOptionPane.showMessageDialog(null, "El correo no es válido", "Error de Captura!", JOptionPane.ERROR_MESSAGE);
+                    txtEmail.requestFocus();
+                }
             }
         });
 
@@ -159,6 +166,7 @@ public class FraEmpleados extends JFrame {
         dateChooser = new JDateChooser(new Date());
         dateChooser.setBounds(210, 288, 245, 30);
         dateChooser.setFont(customFont);
+        
         panel.add(dateChooser);
 
         lblGenero = new JLabel("Género:", SwingConstants.LEFT);
@@ -174,7 +182,7 @@ public class FraEmpleados extends JFrame {
         GeneroRepository generoRepository = new GeneroRepository();
         List<Genero> listaGen = generoRepository.recuperarTodos();
         for (Genero genero : listaGen) {
-        cboGenero.addItem(genero.getNombre());
+            cboGenero.addItem(genero.getNombre());
         }
 
         cmdGuardar = new JButton("Guardar");
@@ -185,11 +193,20 @@ public class FraEmpleados extends JFrame {
         cmdGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                java.util.Date utilDate = dateChooser.getDate();
+                java.sql.Date fecha = new java.sql.Date(utilDate.getTime());
+                //System.out.println(dateChooser.getDate());
                 EmpleadoRepository empleadoRepository = new EmpleadoRepository();
-                GeneroRepository generoRepository = new GeneroRepository();
-                Genero g = generoRepository.recuperarId(1L);
-                Empleado em = new Empleado(null, txtNombre.getText(), txtDomicilio.getText(), txtTelefono.getText(),
-                        txtEmail.getText(), null, g);
+                // GeneroRepository generoRepository = new GeneroRepository();
+
+                Genero g = generoRepository.recuperarId((long) cboGenero.getSelectedIndex()+1);
+    
+
+                // System.out.println("Género: " +cboGenero.getSelectedItem()+" "+ cboGenero.getSelectedIndex());
+
+                Empleado em = new Empleado(null, txtNombre.getText(), txtDomicilio.getText(), txtTelefono.getText(), txtEmail.getText(), fecha, g);
+                System.out.println(em.getGenero().getNombre());
                 empleadoRepository.agregar(em);
             }
         });

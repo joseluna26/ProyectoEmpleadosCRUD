@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import db.conexion.ConexionDB;
 import interfaces.RepositoryInterface;
 import models.Empleado;
@@ -70,8 +72,10 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
                 ps.setDate(6, (Date) entidad.getFechaNacimiento());
                 ps.executeUpdate();
                 System.out.println("Se insertó " + entidad.getNombre() + " correctamente :)");
+                JOptionPane.showMessageDialog(null, "Se insertó " + entidad.getNombre() + " correctamente", "éxito!", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
-                System.out.println("No se insertó al empleado :(" + e);
+                JOptionPane.showMessageDialog(null, "No se insertó al empleado", "Error!", JOptionPane.ERROR_MESSAGE);
+
             }
         } catch (Exception e) {
 
