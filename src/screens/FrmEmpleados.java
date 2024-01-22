@@ -46,12 +46,14 @@ public class FrmEmpleados extends JFrame {
         Image icono = new ImageIcon(getClass().getResource("/images/login.png")).getImage();
         setIconImage(icono);
         controles();
-
+        
         setVisible(true);
     }
-
+    
     // Controles
     public void controles() {
+        EmpleadoRepository empleadoRepository = new EmpleadoRepository();
+        GeneroRepository generoRepository = new GeneroRepository();
         JPanel panel = new JPanel();
         getContentPane().add(panel);
         panel.setLayout(null);
@@ -71,17 +73,38 @@ public class FrmEmpleados extends JFrame {
         cboNumEmp.setBounds(210, 63, 120, 30);
         cboNumEmp.setFont(customFont);
         panel.add(cboNumEmp);
-
-        EmpleadoRepository empleadoRepository = new EmpleadoRepository();
+        
         List<Empleado> listaEmp = empleadoRepository.recuperarTodos();
         for (Empleado empleado : listaEmp) {
             cboNumEmp.addItem(empleado.getId());
         }
-
+        
         cmdBuscar = new JButton("Buscar");
         cmdBuscar.setBounds(340, 63, 112, 30);
         cmdBuscar.setFont(customFont);
         panel.add(cmdBuscar);
+        
+        cmdBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EmpleadoRepository empleadoRepository = new EmpleadoRepository();
+
+                Empleado em = empleadoRepository.recuperarId((long) cboNumEmp.getSelectedIndex()+1);
+
+                txtNombre.setText(em.getNombre());
+                txtDomicilio.setText(em.getDomicilio());
+                txtTelefono.setText(em.getTelefono());
+                txtEmail.setText(em.getEmail());
+                // dateChooser.setDate(em.getFechaNacimiento());
+
+
+                System.out.println(em.getNombre()+" "+ em.getDomicilio());
+
+
+                // empleadoRepository.agregar(em);
+            }
+        });
+        
 
         lblNombre = new JLabel("Nombre:", SwingConstants.LEFT);
         lblNombre.setBounds(125, 109, 300, 30);
@@ -179,7 +202,6 @@ public class FrmEmpleados extends JFrame {
         cboGenero.setFont(customFont);
         panel.add(cboGenero);
 
-        GeneroRepository generoRepository = new GeneroRepository();
         List<Genero> listaGen = generoRepository.recuperarTodos();
         for (Genero genero : listaGen) {
             cboGenero.addItem(genero.getNombre());
@@ -197,14 +219,10 @@ public class FrmEmpleados extends JFrame {
                 java.util.Date utilDate = dateChooser.getDate();
                 java.sql.Date fecha = new java.sql.Date(utilDate.getTime());
                 //System.out.println(dateChooser.getDate());
-                EmpleadoRepository empleadoRepository = new EmpleadoRepository();
+                // EmpleadoRepository empleadoRepository = new EmpleadoRepository();
                 // GeneroRepository generoRepository = new GeneroRepository();
-
                 Genero g = generoRepository.recuperarId((long) cboGenero.getSelectedIndex()+1);
-    
-
                 // System.out.println("Género: " +cboGenero.getSelectedItem()+" "+ cboGenero.getSelectedIndex());
-
                 Empleado em = new Empleado(null, txtNombre.getText(), txtDomicilio.getText(), txtTelefono.getText(), txtEmail.getText(), fecha, g);
                 System.out.println(em.getGenero().getNombre());
                 empleadoRepository.agregar(em);
@@ -215,6 +233,11 @@ public class FrmEmpleados extends JFrame {
         cmdModificar.setBounds(165, 383, 110, 35);
         cmdModificar.setFont(customFont);
         panel.add(cmdModificar);
+
+
+
+
+
 
         cmdEliminar = new JButton("Eliminar");
         cmdEliminar.setBounds(295, 383, 110, 35);
@@ -239,11 +262,6 @@ public class FrmEmpleados extends JFrame {
                 txtNombre.requestFocus();
             }
         });
-
-        // cmdGuardar.setEnabled(false);
-        // cmdModificar.setEnabled(false);
-        // cmdEliminar.setEnabled(false);
-
     } // Fin controles
 
     private void cambiarFoco(String nomcontrol) {
@@ -267,4 +285,7 @@ public class FrmEmpleados extends JFrame {
                 break;
         }
     }
+
+
+
 } // Fin fraEmpleados

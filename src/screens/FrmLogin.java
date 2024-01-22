@@ -4,7 +4,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,7 +22,6 @@ public class FrmLogin extends JFrame {
     JButton cmdIniciar, cmdRegistrar;
 
     public FrmLogin() {
-
         // Ventana
         super("Inicia Sesión");
         setSize(300, 200);
@@ -137,7 +135,7 @@ public class FrmLogin extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 FrmRegistro fraRegistro = new FrmRegistro();
                 fraRegistro.setVisible(true);
-                setVisible(false);
+                // setVisible(false);
             }
         });
 

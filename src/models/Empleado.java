@@ -17,8 +17,7 @@ public class Empleado {
         this.nombre = nombre;
     }
 
-    public Empleado(Integer id, String nombre, String domicilio, String telefono, String email, Date fechaNacimiento,
-            Genero genero) {
+    public Empleado(Integer id, String nombre, String domicilio, String telefono, String email, Date fechaNacimiento, Genero genero) {
         this.idEmpleado = id;
         this.nombre = nombre;
         this.domicilio = domicilio;
@@ -26,6 +25,18 @@ public class Empleado {
         this.email = email;
         this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
+    }
+
+
+
+
+
+    public Empleado(Integer idEmpleado, String nombre, String domicilio, String telefono, String email) {
+        this.idEmpleado = idEmpleado;
+        this.nombre = nombre;
+        this.domicilio = domicilio;
+        this.telefono = telefono;
+        this.email = email;
     }
 
     public Integer getId() {

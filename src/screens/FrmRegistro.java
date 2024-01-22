@@ -38,8 +38,6 @@ public class FrmRegistro extends JFrame{
         controles();
 
         setVisible(true);
-
-
     }
     
 // Controles
@@ -133,6 +131,11 @@ public class FrmRegistro extends JFrame{
         panel.add(cmdRegistrar);
     }
 
+
+
+
+
+    
     private void cambiarFoco(String nomcontrol) {
         switch (nomcontrol) {
             case "txtNombre":

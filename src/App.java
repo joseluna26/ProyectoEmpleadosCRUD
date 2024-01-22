@@ -35,6 +35,8 @@ public class App {
         // Genero g = generoRepository.recuperarId(1L);
         // System.out.println(g.getId());
         // System.out.println(g.getNombre());
+
+        
         // generoRepository.eliminar(g);
 
         // Agregar Empleado //
@@ -96,7 +98,7 @@ public class App {
         // }
 
         
-        SwingUtilities.invokeLater(() -> new FrmLogin());
+        new FrmLogin();
         // SwingUtilities.invokeLater(() -> new FraRegistro());
         // SwingUtilities.invokeLater(() -> new FraEmpleados());
 

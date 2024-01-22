@@ -85,7 +85,7 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
     @Override
     public void modificar(Empleado entidad) {
         try (Connection conexion = ConexionDB.obtenerConexion()) {
-            String q = "UPDATE empleados SET nombre = ? WHERE idEmpleado = ?";
+            String q = "UPDATE empleados SET nombre = ?,  WHERE idEmpleado = ?";
             try (PreparedStatement preparedStatement = conexion.prepareStatement(q)) {
                 preparedStatement.setString(1, entidad.getNombre());
                 preparedStatement.setLong(2, entidad.getId());
@@ -119,13 +119,19 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
     private Empleado dameEntidadResultSet(ResultSet resultSet) {
         Integer idEmpleado = null;
         String nombre = null;
+        String domicilio = null;
+        String telefono = null;
+        String email = null;
 
         try {
             while (resultSet.next()) {
                 idEmpleado = resultSet.getInt("IdEmpleado");
                 nombre = resultSet.getString("nombre");
+                domicilio = resultSet.getString("domicilio");
+                telefono = resultSet.getString("telefono");
+                email = resultSet.getString("email");
             }
-            return new Empleado(idEmpleado, nombre);
+            return new Empleado(idEmpleado, nombre, domicilio, telefono, email);
         } catch (Exception e) {
         }
         return null;

@@ -28,7 +28,6 @@ public class GeneroRepository implements RepositoryInterface<Genero> {
 
         }
         return null;
-
     }
 
     @Override
