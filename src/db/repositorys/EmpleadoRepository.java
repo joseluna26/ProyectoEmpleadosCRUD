@@ -122,6 +122,7 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
         String domicilio = null;
         String telefono = null;
         String email = null;
+        Date fecnac = null;
 
         try {
             while (resultSet.next()) {
@@ -130,8 +131,9 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
                 domicilio = resultSet.getString("domicilio");
                 telefono = resultSet.getString("telefono");
                 email = resultSet.getString("email");
+                fecnac = resultSet.getDate("fecha_nacimiento");
             }
-            return new Empleado(idEmpleado, nombre, domicilio, telefono, email);
+            return new Empleado(idEmpleado, nombre, domicilio, telefono, email, fecnac);
         } catch (Exception e) {
         }
         return null;

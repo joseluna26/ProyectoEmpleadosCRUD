@@ -95,7 +95,7 @@ public class FrmEmpleados extends JFrame {
                 txtDomicilio.setText(em.getDomicilio());
                 txtTelefono.setText(em.getTelefono());
                 txtEmail.setText(em.getEmail());
-                // dateChooser.setDate(em.getFechaNacimiento());
+                dateChooser.setDate(em.getFechaNacimiento());
 
 
                 System.out.println(em.getNombre()+" "+ em.getDomicilio());

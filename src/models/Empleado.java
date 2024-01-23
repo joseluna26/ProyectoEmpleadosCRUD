@@ -31,12 +31,16 @@ public class Empleado {
 
 
 
-    public Empleado(Integer idEmpleado, String nombre, String domicilio, String telefono, String email) {
+
+
+    public Empleado(Integer idEmpleado, String nombre, String domicilio, String telefono, String email,
+            Date fechaNacimiento) {
         this.idEmpleado = idEmpleado;
         this.nombre = nombre;
         this.domicilio = domicilio;
         this.telefono = telefono;
         this.email = email;
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public Integer getId() {
