@@ -71,7 +71,7 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
                 ps.setString(5, entidad.getEmail());
                 ps.setDate(6, (Date) entidad.getFechaNacimiento());
                 ps.executeUpdate();
-                System.out.println("Se insertó " + entidad.getNombre() + " correctamente :)");
+                // System.out.println("Se insertó " + entidad.getNombre() + " correctamente :)");
                 JOptionPane.showMessageDialog(null, "Se insertó " + entidad.getNombre() + " correctamente", "éxito!", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se insertó al empleado", "Error!", JOptionPane.ERROR_MESSAGE);
@@ -85,14 +85,24 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
     @Override
     public void modificar(Empleado entidad) {
         try (Connection conexion = ConexionDB.obtenerConexion()) {
-            String q = "UPDATE empleados SET nombre = ?,  WHERE idEmpleado = ?";
+            String q = "UPDATE empleados SET id_genero = ?, nombre = ?, domicilio = ?, telefono = ?, email = ?, fecha_nacimiento = ?  WHERE idEmpleado = ?";
             try (PreparedStatement preparedStatement = conexion.prepareStatement(q)) {
-                preparedStatement.setString(1, entidad.getNombre());
-                preparedStatement.setLong(2, entidad.getId());
+                
+                preparedStatement.setLong(1, entidad.getGenero().getId());
+                preparedStatement.setString(2, entidad.getNombre());
+                preparedStatement.setString(3, entidad.getDomicilio());
+                preparedStatement.setString(4, entidad.getTelefono());
+                preparedStatement.setString(5, entidad.getEmail());
+                preparedStatement.setDate(6, (Date) entidad.getFechaNacimiento());
+                preparedStatement.setLong(7, entidad.getId());
+
+                
                 preparedStatement.executeUpdate();
-                System.out.println("Se modificó la info del Empleado");
+                JOptionPane.showMessageDialog(null, "Se Modificó el registro de " + entidad.getNombre() + " correctamente", "éxito!", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
-                System.out.println("No se modificó el registro del Empleado" + e);
+                JOptionPane.showMessageDialog(null, "No se modificó el registro del Empleado" + e, "Error!", JOptionPane.ERROR_MESSAGE);
+                // System.out.println("Nombre: " +entidad.getNombre()+" " + entidad.getId());
+                // System.out.println("No se modificó el registro del Empleado" + e);
             }
         } catch (Exception e) {
 
@@ -107,9 +117,9 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
 
                 preparedStatement.setLong(1, entidad.getId());
                 preparedStatement.executeUpdate();
-                System.out.println("Se eliminó el Empleado");
+                JOptionPane.showMessageDialog(null, "Se eliminó el registro " + entidad.getNombre() + " correctamente", "éxito!", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
-                System.out.println("No se leiminó registro de empleado");
+                JOptionPane.showMessageDialog(null, "No se eliminó el registro del empleado", "Error!", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
 

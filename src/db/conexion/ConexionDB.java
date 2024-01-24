@@ -19,10 +19,10 @@ public class ConexionDB {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conexion = DriverManager.getConnection(url, user, pass);
-            System.out.println("Se conectó a la DBF");
+            // System.out.println("Se conectó a la DBF");
             return conexion;
         } catch (Exception ex) {
-            System.out.println("Error al conectar la base de datos");
+            // System.out.println("Error al conectar la base de datos");
         }
         return null;
     }

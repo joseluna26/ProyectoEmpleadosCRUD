@@ -234,7 +234,19 @@ public class FrmEmpleados extends JFrame {
         cmdModificar.setFont(customFont);
         panel.add(cmdModificar);
 
+        cmdModificar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Integer idcombo = cboNumEmp.getSelectedIndex()+1;
 
+                java.util.Date utilDate = dateChooser.getDate();
+                java.sql.Date fecha = new java.sql.Date(utilDate.getTime());
+                Genero g = generoRepository.recuperarId((long) cboGenero.getSelectedIndex()+1);
+                Empleado em = new Empleado(idcombo, txtNombre.getText(), txtDomicilio.getText(), txtTelefono.getText(), txtEmail.getText(), fecha, g);
+                System.out.println("IdCombo: "+ idcombo);
+                empleadoRepository.modificar(em);
+            }
+        });
 
 
 
