@@ -65,21 +65,6 @@ public class FrmLogin extends JFrame {
             }
         });
 
-        // txtUsuario.getDocument().addDocumentListener(new DocumentListener() {
-        //     @Override
-        //     public void insertUpdate(DocumentEvent e) {
-        //         validarvacios();
-        //     }
-
-        //     @Override
-        //     public void removeUpdate(DocumentEvent e) {
-        //     }
-
-        //     @Override
-        //     public void changedUpdate(DocumentEvent e) {
-        //     }
-        // });
-
         lblContra = new JLabel("Contraseña:", SwingConstants.LEFT);
         lblContra.setBounds(20, 87, 300, 20);
         lblContra.setFont(defaultFont);
@@ -96,21 +81,6 @@ public class FrmLogin extends JFrame {
                 cmdIniciar.requestFocus();
             }
         });
-
-        // txtContra.getDocument().addDocumentListener(new DocumentListener() {
-        //     @Override
-        //     public void insertUpdate(DocumentEvent e) {
-        //         validarvacios();
-        //     }
-
-        //     @Override
-        //     public void removeUpdate(DocumentEvent e) {
-        //     }
-
-        //     @Override
-        //     public void changedUpdate(DocumentEvent e) {
-        //     }
-        // });
 
         cmdIniciar = new JButton("Iniciar");
         cmdIniciar.setBounds(5, 125, 130, 25);
@@ -141,15 +111,4 @@ public class FrmLogin extends JFrame {
 
     } // fin controles
 
-    // private void validarvacios() {
-
-    //     if (!txtUsuario.getText().isEmpty() && txtContra.getPassword().length != 0) {
-            
-    //         cmdIniciar.setEnabled(true);
-    //         cmdRegistrar.setEnabled(false);
-    //     } else if (txtUsuario.getText().isEmpty() && txtContra.getPassword().length == 0){
-    //         cmdIniciar.setEnabled(false);
-    //         cmdRegistrar.setEnabled(true);
-    //     }
-    // }
 }

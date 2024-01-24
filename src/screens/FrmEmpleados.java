@@ -85,9 +85,9 @@ public class FrmEmpleados extends JFrame {
         panel.add(cmdBuscar);
         
         cmdBuscar.addActionListener(new ActionListener() {
+            
             @Override
             public void actionPerformed(ActionEvent e) {
-                EmpleadoRepository empleadoRepository = new EmpleadoRepository();
 
                 Empleado em = empleadoRepository.recuperarId((long) cboNumEmp.getSelectedIndex()+1);
 
@@ -97,9 +97,9 @@ public class FrmEmpleados extends JFrame {
                 txtEmail.setText(em.getEmail());
                 dateChooser.setDate(em.getFechaNacimiento());
 
+                
 
-                System.out.println(em.getNombre()+" "+ em.getDomicilio());
-
+                // Genero g = generoRepository.recuperarId(em.getGenero().getId());
 
                 // empleadoRepository.agregar(em);
             }
@@ -243,6 +243,18 @@ public class FrmEmpleados extends JFrame {
         cmdEliminar.setBounds(295, 383, 110, 35);
         cmdEliminar.setFont(customFont);
         panel.add(cmdEliminar);
+
+        cmdEliminar.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Empleado em = empleadoRepository.recuperarId((long) cboNumEmp.getSelectedIndex()+1);
+
+                empleadoRepository.eliminar(em);
+            }
+        });
+
 
         cmdLimpiar = new JButton("Limpiar");
         cmdLimpiar.setBounds(427, 383, 110, 35);

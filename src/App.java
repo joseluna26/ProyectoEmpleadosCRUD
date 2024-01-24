@@ -9,7 +9,7 @@
 // import models.Login;
 
 
-import javax.swing.SwingUtilities;
+// import javax.swing.SwingUtilities;
 
 // import screens.FraEmpleados;
 import screens.FrmLogin;
@@ -35,7 +35,6 @@ public class App {
         // Genero g = generoRepository.recuperarId(1L);
         // System.out.println(g.getId());
         // System.out.println(g.getNombre());
-
         
         // generoRepository.eliminar(g);
 

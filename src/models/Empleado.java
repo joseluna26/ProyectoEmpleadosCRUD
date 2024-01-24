@@ -27,22 +27,6 @@ public class Empleado {
         this.genero = genero;
     }
 
-
-
-
-
-
-
-    public Empleado(Integer idEmpleado, String nombre, String domicilio, String telefono, String email,
-            Date fechaNacimiento) {
-        this.idEmpleado = idEmpleado;
-        this.nombre = nombre;
-        this.domicilio = domicilio;
-        this.telefono = telefono;
-        this.email = email;
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
     public Integer getId() {
         return idEmpleado;
     }
@@ -101,7 +85,6 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return "Empleado [idEmpleado=" + idEmpleado + ", nombre=" + nombre + ", domicilio=" + domicilio + ", telefono="
-                + telefono + ", email=" + email + ", fechaNacimiento=" + fechaNacimiento + ", genero=" + genero + "]";
+        return "Empleado [idEmpleado=" + idEmpleado + ", nombre=" + nombre + ", domicilio=" + domicilio + ", telefono=" + telefono + ", email=" + email + ", fechaNacimiento=" + fechaNacimiento + ", genero=" + genero + "]";
     }
 }

@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import db.conexion.ConexionDB;
 import interfaces.RepositoryInterface;
 import models.Empleado;
-// import models.Genero;
+import models.Genero;
 
 public class EmpleadoRepository implements RepositoryInterface<Empleado> {
 
@@ -123,6 +123,7 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
         String telefono = null;
         String email = null;
         Date fecnac = null;
+        Genero genero = null;
 
         try {
             while (resultSet.next()) {
@@ -132,8 +133,10 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
                 telefono = resultSet.getString("telefono");
                 email = resultSet.getString("email");
                 fecnac = resultSet.getDate("fecha_nacimiento");
+                // genero = resultSet.getLong("id_Genero");
+                
             }
-            return new Empleado(idEmpleado, nombre, domicilio, telefono, email, fecnac);
+            return new Empleado(idEmpleado, nombre, domicilio, telefono, email, fecnac, genero);
         } catch (Exception e) {
         }
         return null;
