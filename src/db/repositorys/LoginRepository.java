@@ -68,10 +68,8 @@ public class LoginRepository implements RepositoryInterface<Login> {
                 ps.setString(4, entidad.getContrasenia());
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Se insertó " + entidad.getNombre() + " correctamente", "éxito!", JOptionPane.INFORMATION_MESSAGE);
-                // System.out.println("Se insertó " + entidad.getNombre() + " correctamente :)");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se insertó el Registro", "Error!", JOptionPane.ERROR_MESSAGE);
-                // System.out.println("No se insertó nada :(" + e);
             }
         } catch (Exception e) {
 

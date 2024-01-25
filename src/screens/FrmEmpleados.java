@@ -210,7 +210,7 @@ public class FrmEmpleados extends JFrame {
                 java.sql.Date fecha = new java.sql.Date(utilDate.getTime());
                 Genero g = generoRepository.recuperarId((long) cboGenero.getSelectedIndex() + 1);
                 Empleado em = new Empleado(null, txtNombre.getText(), txtDomicilio.getText(), txtTelefono.getText(), txtEmail.getText(), fecha, g);
-                System.out.println(em.getGenero().getNombre());
+                // System.out.println(em.getGenero().getNombre());
                 empleadoRepository.agregar(em);
             }
         });

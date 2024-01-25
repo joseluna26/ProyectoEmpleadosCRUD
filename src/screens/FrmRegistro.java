@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -32,7 +33,7 @@ public class FrmRegistro extends JFrame {
         // Ventana
         super("Registro");
         setSize(300, 310);
-        // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         Image icono = new ImageIcon(getClass().getResource("/images/login.png")).getImage();
@@ -67,6 +68,7 @@ public class FrmRegistro extends JFrame {
         txtNombre.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                validaCamposVacios();
                 cambiarFoco("txtNombre");
             }
         });
@@ -84,6 +86,7 @@ public class FrmRegistro extends JFrame {
         txtEmail.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                validaCamposVacios();
                 cambiarFoco("txtEmail");
             }
         });
@@ -101,6 +104,7 @@ public class FrmRegistro extends JFrame {
         txtUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                validaCamposVacios();
                 cambiarFoco("txtUsuario");
             }
         });
@@ -118,6 +122,7 @@ public class FrmRegistro extends JFrame {
         txtContra.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                validaCamposVacios();
                 cambiarFoco("txtContra");
             }
         });
@@ -135,14 +140,31 @@ public class FrmRegistro extends JFrame {
         cmdRegistrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LoginRepository loginRepository = new LoginRepository();
-                char[] passwordChars = txtContra.getPassword();
-                String pass = new String(passwordChars);
-                Login reg = new Login(null, txtNombre.getText(), txtEmail.getText(), txtUsuario.getText(), pass);
 
-                loginRepository.agregar(reg);
+                if (txtNombre.getText().isEmpty() || txtEmail.getText().isEmpty() || txtUsuario.getText().isEmpty() || txtContra.getPassword().length == 0) {
+                    JOptionPane.showMessageDialog(null, "Campos vacíos, no se insertó el Registro", "Error de captura!", JOptionPane.ERROR_MESSAGE);
+                    FrmLogin frmLogin = new FrmLogin();
+                    frmLogin.setVisible(true);
+                    dispose();
+                } else {
+                    
+                    LoginRepository loginRepository = new LoginRepository();
+                    char[] passwordChars = txtContra.getPassword();
+                    String pass = new String(passwordChars);
+                    Login reg = new Login(null, txtNombre.getText(), txtEmail.getText(), txtUsuario.getText(), pass);
+                    loginRepository.agregar(reg);
+                    FrmLogin frmLogin = new FrmLogin();
+                    frmLogin.setVisible(true);
+                    dispose();
+                }
             }
         });
+
+        if (txtNombre.getText().isEmpty() || txtEmail.getText().isEmpty() || txtUsuario.getText().isEmpty() || txtContra.getPassword().length == 0) {
+
+            cmdRegistrar.setText("Salir");
+        }
+        
     }
 
     private void cambiarFoco(String nomcontrol) {
@@ -161,6 +183,15 @@ public class FrmRegistro extends JFrame {
                 break;
             default:
                 break;
+        }
+    }
+
+    private void validaCamposVacios(){
+        if (txtNombre.getText().isEmpty() || txtEmail.getText().isEmpty() || txtUsuario.getText().isEmpty() || txtContra.getPassword().length == 0) {
+
+            cmdRegistrar.setText("Salir");
+        } else {
+            cmdRegistrar.setText("Registrar");
         }
     }
 }

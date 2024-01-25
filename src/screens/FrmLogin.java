@@ -103,9 +103,9 @@ public class FrmLogin extends JFrame {
         cmdRegistrar.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                FrmRegistro fraRegistro = new FrmRegistro();
-                fraRegistro.setVisible(true);
-                // setVisible(false);
+                FrmRegistro frmRegistro = new FrmRegistro();
+                frmRegistro.setVisible(true);
+                dispose();
             }
         });
 
