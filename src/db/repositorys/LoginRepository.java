@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import db.conexion.ConexionDB;
 import interfaces.RepositoryInterface;
 import models.Login;
@@ -65,9 +67,11 @@ public class LoginRepository implements RepositoryInterface<Login> {
                 ps.setString(3, entidad.getUsuario());
                 ps.setString(4, entidad.getContrasenia());
                 ps.executeUpdate();
-                System.out.println("Se insertó " + entidad.getNombre() + " correctamente :)");
+                JOptionPane.showMessageDialog(null, "Se insertó " + entidad.getNombre() + " correctamente", "éxito!", JOptionPane.INFORMATION_MESSAGE);
+                // System.out.println("Se insertó " + entidad.getNombre() + " correctamente :)");
             } catch (Exception e) {
-                System.out.println("No se insertó nada :(" + e);
+                JOptionPane.showMessageDialog(null, "No se insertó el Registro", "Error!", JOptionPane.ERROR_MESSAGE);
+                // System.out.println("No se insertó nada :(" + e);
             }
         } catch (Exception e) {
 

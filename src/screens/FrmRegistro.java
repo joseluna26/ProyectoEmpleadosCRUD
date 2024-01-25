@@ -15,9 +15,11 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import db.repositorys.LoginRepository;
 import helpers.FontManager;
+import models.Login;
 
-public class FrmRegistro extends JFrame{
+public class FrmRegistro extends JFrame {
 
     JLabel lblTitulo, lblNombre, lblEmail, lblUsuario, lblContra;
     JTextField txtNombre, txtEmail, txtUsuario;
@@ -25,7 +27,7 @@ public class FrmRegistro extends JFrame{
     JButton cmdRegistrar;
     JRadioButton radContra;
 
-    public FrmRegistro(){
+    public FrmRegistro() {
 
         // Ventana
         super("Registro");
@@ -39,8 +41,8 @@ public class FrmRegistro extends JFrame{
 
         setVisible(true);
     }
-    
-// Controles
+
+    // Controles
     public void controles() {
         JPanel panel = new JPanel();
         getContentPane().add(panel);
@@ -51,12 +53,12 @@ public class FrmRegistro extends JFrame{
         lblTitulo.setBounds(0, 12, 300, 20);
         lblTitulo.setFont(defaultFont);
         panel.add(lblTitulo);
-        
+
         lblNombre = new JLabel("Nombre:", SwingConstants.LEFT);
         lblNombre.setBounds(45, 45, 300, 20);
         lblNombre.setFont(defaultFont);
         panel.add(lblNombre);
-        
+
         txtNombre = new JTextField();
         txtNombre.setBounds(110, 46, 150, 22);
         txtNombre.setFont(defaultFont);
@@ -73,7 +75,7 @@ public class FrmRegistro extends JFrame{
         lblEmail.setBounds(61, 87, 300, 20);
         lblEmail.setFont(defaultFont);
         panel.add(lblEmail);
-        
+
         txtEmail = new JTextField();
         txtEmail.setBounds(110, 87, 150, 22);
         txtEmail.setFont(defaultFont);
@@ -85,12 +87,12 @@ public class FrmRegistro extends JFrame{
                 cambiarFoco("txtEmail");
             }
         });
-        
+
         lblUsuario = new JLabel("Usuario:", SwingConstants.LEFT);
         lblUsuario.setBounds(49, 128, 300, 20);
         lblUsuario.setFont(defaultFont);
         panel.add(lblUsuario);
-        
+
         txtUsuario = new JTextField();
         txtUsuario.setBounds(110, 128, 150, 22);
         txtUsuario.setFont(defaultFont);
@@ -107,7 +109,7 @@ public class FrmRegistro extends JFrame{
         lblContra.setBounds(20, 169, 300, 20);
         lblContra.setFont(defaultFont);
         panel.add(lblContra);
-        
+
         txtContra = new JPasswordField();
         txtContra.setBounds(150, 169, 110, 22);
         txtContra.setFont(defaultFont);
@@ -119,23 +121,30 @@ public class FrmRegistro extends JFrame{
                 cambiarFoco("txtContra");
             }
         });
-        
+
         radContra = new JRadioButton();
         radContra.setBounds(110, 169, 20, 22);
         radContra.setFont(defaultFont);
         panel.add(radContra);
-        
+
         cmdRegistrar = new JButton("Registrar");
         cmdRegistrar.setBounds(150, 231, 110, 25);
         cmdRegistrar.setFont(defaultFont);
         panel.add(cmdRegistrar);
+
+        cmdRegistrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginRepository loginRepository = new LoginRepository();
+                char[] passwordChars = txtContra.getPassword();
+                String pass = new String(passwordChars);
+                Login reg = new Login(null, txtNombre.getText(), txtEmail.getText(), txtUsuario.getText(), pass);
+
+                loginRepository.agregar(reg);
+            }
+        });
     }
 
-
-
-
-
-    
     private void cambiarFoco(String nomcontrol) {
         switch (nomcontrol) {
             case "txtNombre":

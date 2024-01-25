@@ -17,6 +17,10 @@ import screens.FrmLogin;
 
 public class App {
     public static void main(String[] args) throws Exception {
+        new FrmLogin();
+
+
+        
         // GeneroRepository generoRepository = new GeneroRepository();
         // Genero g1 = new Genero(null, "Drag queen");
         // Genero g2 = new Genero(null, "Masculino");
@@ -67,8 +71,7 @@ public class App {
 
         // Agregar Login //
         // LoginRepository loginRepository = new LoginRepository();
-        // Login l1 = new Login(null, "Manuel", "manuel@gmail.com", "manuel_luna",
-        // "641016");
+        // Login l1 = new Login(null, "Manuel", "manuel@gmail.com", "manuel_luna", "641016");
         // Login l2 = new Login(null, "Luis", "luis@gmail.com", "jluna", "123456");
         // Login l3 = new Login(null, "Carlos", "carlos@gmail.com", "lunaC", "631020");
         // loginRepository.agregar(l1);
@@ -97,7 +100,6 @@ public class App {
         // }
 
         
-        new FrmLogin();
         // SwingUtilities.invokeLater(() -> new FraRegistro());
         // SwingUtilities.invokeLater(() -> new FraEmpleados());
 

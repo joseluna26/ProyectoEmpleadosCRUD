@@ -1,5 +1,6 @@
 package screens;
 
+import java.awt.Container;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.*;
@@ -46,14 +47,15 @@ public class FrmEmpleados extends JFrame {
         Image icono = new ImageIcon(getClass().getResource("/images/login.png")).getImage();
         setIconImage(icono);
         controles();
-        
+
         setVisible(true);
     }
-    
+
     // Controles
     public void controles() {
         EmpleadoRepository empleadoRepository = new EmpleadoRepository();
         GeneroRepository generoRepository = new GeneroRepository();
+
         JPanel panel = new JPanel();
         getContentPane().add(panel);
         panel.setLayout(null);
@@ -73,38 +75,26 @@ public class FrmEmpleados extends JFrame {
         cboNumEmp.setBounds(210, 63, 120, 30);
         cboNumEmp.setFont(customFont);
         panel.add(cboNumEmp);
-        
+
         List<Empleado> listaEmp = empleadoRepository.recuperarTodos();
         for (Empleado empleado : listaEmp) {
             cboNumEmp.addItem(empleado.getId());
         }
-        
+
         cmdBuscar = new JButton("Buscar");
         cmdBuscar.setBounds(340, 63, 112, 30);
         cmdBuscar.setFont(customFont);
         panel.add(cmdBuscar);
-        
+
         cmdBuscar.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 Empleado em = empleadoRepository.recuperarId((long) cboNumEmp.getSelectedIndex()+1);
-
-                txtNombre.setText(em.getNombre());
-                txtDomicilio.setText(em.getDomicilio());
-                txtTelefono.setText(em.getTelefono());
-                txtEmail.setText(em.getEmail());
-                dateChooser.setDate(em.getFechaNacimiento());
-
-                
-
-                // Genero g = generoRepository.recuperarId(em.getGenero().getId());
-
-                // empleadoRepository.agregar(em);
+                llenarCamposEmpleado(em);
             }
         });
-        
 
         lblNombre = new JLabel("Nombre:", SwingConstants.LEFT);
         lblNombre.setBounds(125, 109, 300, 30);
@@ -175,7 +165,8 @@ public class FrmEmpleados extends JFrame {
                 if (txtEmail.getText().contains("@") && txtEmail.getText().contains(".")) {
                     cambiarFoco("txtEmail");
                 } else {
-                    JOptionPane.showMessageDialog(null, "El correo no es válido", "Error de Captura!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El correo no es válido", "Error de Captura!",
+                            JOptionPane.ERROR_MESSAGE);
                     txtEmail.requestFocus();
                 }
             }
@@ -189,7 +180,6 @@ public class FrmEmpleados extends JFrame {
         dateChooser = new JDateChooser(new Date());
         dateChooser.setBounds(210, 288, 245, 30);
         dateChooser.setFont(customFont);
-        
         panel.add(dateChooser);
 
         lblGenero = new JLabel("Género:", SwingConstants.LEFT);
@@ -218,11 +208,7 @@ public class FrmEmpleados extends JFrame {
 
                 java.util.Date utilDate = dateChooser.getDate();
                 java.sql.Date fecha = new java.sql.Date(utilDate.getTime());
-                //System.out.println(dateChooser.getDate());
-                // EmpleadoRepository empleadoRepository = new EmpleadoRepository();
-                // GeneroRepository generoRepository = new GeneroRepository();
-                Genero g = generoRepository.recuperarId((long) cboGenero.getSelectedIndex()+1);
-                // System.out.println("Género: " +cboGenero.getSelectedItem()+" "+ cboGenero.getSelectedIndex());
+                Genero g = generoRepository.recuperarId((long) cboGenero.getSelectedIndex() + 1);
                 Empleado em = new Empleado(null, txtNombre.getText(), txtDomicilio.getText(), txtTelefono.getText(), txtEmail.getText(), fecha, g);
                 System.out.println(em.getGenero().getNombre());
                 empleadoRepository.agregar(em);
@@ -237,19 +223,16 @@ public class FrmEmpleados extends JFrame {
         cmdModificar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Integer idcombo = cboNumEmp.getSelectedIndex()+1;
+                Integer idcombo = (cboNumEmp.getSelectedIndex() + 1);
 
                 java.util.Date utilDate = dateChooser.getDate();
                 java.sql.Date fecha = new java.sql.Date(utilDate.getTime());
-                Genero g = generoRepository.recuperarId((long) cboGenero.getSelectedIndex()+1);
-                Empleado em = new Empleado(idcombo, txtNombre.getText(), txtDomicilio.getText(), txtTelefono.getText(), txtEmail.getText(), fecha, g);
-                System.out.println("IdCombo: "+ idcombo);
+                Genero g = generoRepository.recuperarId((long) cboGenero.getSelectedIndex() + 1);
+                Empleado em = new Empleado(idcombo, txtNombre.getText(), txtDomicilio.getText(), txtTelefono.getText(),
+                        txtEmail.getText(), fecha, g);
                 empleadoRepository.modificar(em);
             }
         });
-
-
-
 
         cmdEliminar = new JButton("Eliminar");
         cmdEliminar.setBounds(295, 383, 110, 35);
@@ -257,16 +240,13 @@ public class FrmEmpleados extends JFrame {
         panel.add(cmdEliminar);
 
         cmdEliminar.addActionListener(new ActionListener() {
-            
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                Empleado em = empleadoRepository.recuperarId((long) cboNumEmp.getSelectedIndex()+1);
-
+                Empleado em = empleadoRepository.recuperarId((long) cboNumEmp.getSelectedIndex() + 1);
                 empleadoRepository.eliminar(em);
+
             }
         });
-
 
         cmdLimpiar = new JButton("Limpiar");
         cmdLimpiar.setBounds(427, 383, 110, 35);
@@ -276,14 +256,7 @@ public class FrmEmpleados extends JFrame {
         // Limpiar todas las cajas de texto
         cmdLimpiar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JTextField caja;
-                for (int i = 0; i < panel.getComponentCount(); i++) {
-                    if (panel.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
-                        caja = (JTextField) panel.getComponent(i);
-                        caja.setText(null);
-                    }
-                }
-                txtNombre.requestFocus();
+                limpiarControles(panel);
             }
         });
     } // Fin controles
@@ -310,6 +283,23 @@ public class FrmEmpleados extends JFrame {
         }
     }
 
+    private void llenarCamposEmpleado(Empleado em) {
+        txtNombre.setText(em.getNombre());
+        txtDomicilio.setText(em.getDomicilio());
+        txtTelefono.setText(em.getTelefono());
+        txtEmail.setText(em.getEmail());
+        dateChooser.setDate(em.getFechaNacimiento());
+    }
 
+    private void limpiarControles(Container panel) {
+        JTextField caja;
+        for (int i = 0; i < panel.getComponentCount(); i++) {
+            if (panel.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+                caja = (JTextField) panel.getComponent(i);
+                caja.setText(null);
+            }
+        }
+        txtNombre.requestFocus();
+    }
 
 } // Fin fraEmpleados

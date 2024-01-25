@@ -7,8 +7,6 @@ public class Login {
     private String email;
     private String usuario;
     private String contrasenia;
-
-    
     
     public Login(Long id, String nombre) {
         this.id = id;

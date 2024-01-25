@@ -71,7 +71,6 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
                 ps.setString(5, entidad.getEmail());
                 ps.setDate(6, (Date) entidad.getFechaNacimiento());
                 ps.executeUpdate();
-                // System.out.println("Se insertó " + entidad.getNombre() + " correctamente :)");
                 JOptionPane.showMessageDialog(null, "Se insertó " + entidad.getNombre() + " correctamente", "éxito!", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se insertó al empleado", "Error!", JOptionPane.ERROR_MESSAGE);
@@ -95,14 +94,10 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
                 preparedStatement.setString(5, entidad.getEmail());
                 preparedStatement.setDate(6, (Date) entidad.getFechaNacimiento());
                 preparedStatement.setLong(7, entidad.getId());
-
-                
                 preparedStatement.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Se Modificó el registro de " + entidad.getNombre() + " correctamente", "éxito!", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se modificó el registro del Empleado" + e, "Error!", JOptionPane.ERROR_MESSAGE);
-                // System.out.println("Nombre: " +entidad.getNombre()+" " + entidad.getId());
-                // System.out.println("No se modificó el registro del Empleado" + e);
             }
         } catch (Exception e) {
 
