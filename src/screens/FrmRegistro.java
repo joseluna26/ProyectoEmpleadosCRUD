@@ -132,7 +132,7 @@ public class FrmRegistro extends JFrame {
         radContra.setFont(defaultFont);
         panel.add(radContra);
 
-        cmdRegistrar = new JButton("Registrar");
+        cmdRegistrar = new JButton("Salir");
         cmdRegistrar.setBounds(150, 231, 110, 25);
         cmdRegistrar.setFont(defaultFont);
         panel.add(cmdRegistrar);
@@ -160,11 +160,10 @@ public class FrmRegistro extends JFrame {
             }
         });
 
-        if (txtNombre.getText().isEmpty() || txtEmail.getText().isEmpty() || txtUsuario.getText().isEmpty() || txtContra.getPassword().length == 0) {
+        // if (txtNombre.getText().isEmpty() || txtEmail.getText().isEmpty() || txtUsuario.getText().isEmpty() || txtContra.getPassword().length == 0) {
 
-            cmdRegistrar.setText("Salir");
-        }
-        
+        //     cmdRegistrar.setText("Salir");
+        // }
     }
 
     private void cambiarFoco(String nomcontrol) {

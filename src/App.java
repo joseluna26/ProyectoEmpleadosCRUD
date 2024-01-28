@@ -35,7 +35,8 @@ public class App {
         // Genero g = generoRepository.recuperarId(1L);
         // g.setNombre("M");
         // generoRepository.modificar(g);
-
+        
+        // GeneroRepository generoRepository = new GeneroRepository();
         // Genero g = generoRepository.recuperarId(1L);
         // System.out.println(g.getId());
         // System.out.println(g.getNombre());

@@ -27,7 +27,10 @@ import models.Empleado;
 import models.Genero;
 
 public class FrmEmpleados extends JFrame {
-
+    
+    EmpleadoRepository empleadoRepository = new EmpleadoRepository();
+    GeneroRepository generoRepository = new GeneroRepository();
+    
     JLabel lblTitulo, lblEmpleados, lblNombre, lblDomicilio, lblTelefono, lblEmail, lblFechaNac, lblGenero;
     JTextField txtEmpleados, txtNombre, txtDomicilio, txtTelefono, txtEmail, txtFechaNac, txtGenero;
     JComboBox<Integer> cboNumEmp;
@@ -53,8 +56,7 @@ public class FrmEmpleados extends JFrame {
 
     // Controles
     public void controles() {
-        EmpleadoRepository empleadoRepository = new EmpleadoRepository();
-        GeneroRepository generoRepository = new GeneroRepository();
+        
 
         JPanel panel = new JPanel();
         getContentPane().add(panel);
@@ -75,11 +77,7 @@ public class FrmEmpleados extends JFrame {
         cboNumEmp.setBounds(210, 63, 120, 30);
         cboNumEmp.setFont(customFont);
         panel.add(cboNumEmp);
-
-        List<Empleado> listaEmp = empleadoRepository.recuperarTodos();
-        for (Empleado empleado : listaEmp) {
-            cboNumEmp.addItem(empleado.getId());
-        }
+        llenacombo();
 
         cmdBuscar = new JButton("Buscar");
         cmdBuscar.setBounds(340, 63, 112, 30);
@@ -90,8 +88,8 @@ public class FrmEmpleados extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                Empleado em = empleadoRepository.recuperarId((long) cboNumEmp.getSelectedIndex()+1);
+                System.out.println(cboNumEmp.getSelectedItem());
+                Empleado em = empleadoRepository.recuperarId(Long.parseLong(cboNumEmp.getSelectedItem().toString()));
                 llenarCamposEmpleado(em);
             }
         });
@@ -212,6 +210,7 @@ public class FrmEmpleados extends JFrame {
                 Empleado em = new Empleado(null, txtNombre.getText(), txtDomicilio.getText(), txtTelefono.getText(), txtEmail.getText(), fecha, g);
                 // System.out.println(em.getGenero().getNombre());
                 empleadoRepository.agregar(em);
+                llenacombo();
             }
         });
 
@@ -242,9 +241,9 @@ public class FrmEmpleados extends JFrame {
         cmdEliminar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Empleado em = empleadoRepository.recuperarId((long) cboNumEmp.getSelectedIndex() + 1);
+                Empleado em = empleadoRepository.recuperarId(Long.parseLong(cboNumEmp.getSelectedItem().toString()));
                 empleadoRepository.eliminar(em);
-
+                llenacombo();
             }
         });
 
@@ -257,6 +256,7 @@ public class FrmEmpleados extends JFrame {
         cmdLimpiar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 limpiarControles(panel);
+                llenacombo();  // actualiza combo de numEmp
             }
         });
     } // Fin controles
@@ -301,5 +301,13 @@ public class FrmEmpleados extends JFrame {
         }
         txtNombre.requestFocus();
     }
+    
+    private void llenacombo(){
+        cboNumEmp.removeAllItems();
+        List<Empleado> listaEmp = empleadoRepository.recuperarTodos();
+        for (Empleado empleado : listaEmp) {
+            cboNumEmp.addItem(empleado.getId());
+        }
+    }
 
-} // Fin fraEmpleados
+} // Fin frmEmpleados
