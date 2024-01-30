@@ -4,10 +4,9 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -164,7 +163,6 @@ public class FrmEmpleados extends JFrame {
         txtEmail.setFont(customFont);
         panel.add(txtEmail);
 
-
         txtEmail.addKeyListener(new KeyListener() {
 
             @Override
@@ -317,10 +315,18 @@ public class FrmEmpleados extends JFrame {
 
     private void limpiarControles(Container panel) {
         JTextField caja;
+        // JDateChooser factual = new JDateChooser();
         for (int i = 0; i < panel.getComponentCount(); i++) {
             if (panel.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
                 caja = (JTextField) panel.getComponent(i);
                 caja.setText(null);
+                // Pone la fecha actual en el dateChooser
+                LocalDate fechaActual = LocalDate.now();
+                Date fechaActualDate = java.sql.Date.valueOf(fechaActual);
+                dateChooser.setDate(fechaActualDate);
+
+                
+                
             }
         }
         txtNombre.requestFocus();
@@ -334,10 +340,4 @@ public class FrmEmpleados extends JFrame {
         }
     }
 
-    // public boolean verificaEmail(String correo) {
-    //     Pattern patron = Pattern.compile("^[_a-z0-9-\\+]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9]+)*(\\.[a-z]{2,})$");
-
-    //     Matcher mat = patron.matcher(correo);
-    //     return mat.find();
-    // }
 } // Fin frmEmpleados
