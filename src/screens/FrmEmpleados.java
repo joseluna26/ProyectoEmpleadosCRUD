@@ -6,13 +6,14 @@ import java.awt.Image;
 import java.awt.event.*;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -23,15 +24,16 @@ import com.toedter.calendar.JDateChooser;
 import db.repositorys.EmpleadoRepository;
 import db.repositorys.GeneroRepository;
 import helpers.FontManager;
+import helpers.ValidaEmail;
 import models.Empleado;
 import models.Genero;
 
 public class FrmEmpleados extends JFrame {
-    
+
     EmpleadoRepository empleadoRepository = new EmpleadoRepository();
     GeneroRepository generoRepository = new GeneroRepository();
-    
-    JLabel lblTitulo, lblEmpleados, lblNombre, lblDomicilio, lblTelefono, lblEmail, lblFechaNac, lblGenero;
+
+    JLabel lblTitulo, lblEmpleados, lblNombre, lblDomicilio, lblTelefono, lblEmail, lblFechaNac, lblGenero, lblAviso;
     JTextField txtEmpleados, txtNombre, txtDomicilio, txtTelefono, txtEmail, txtFechaNac, txtGenero;
     JComboBox<Integer> cboNumEmp;
     JComboBox<String> cboGenero;
@@ -56,7 +58,6 @@ public class FrmEmpleados extends JFrame {
 
     // Controles
     public void controles() {
-        
 
         JPanel panel = new JPanel();
         getContentPane().add(panel);
@@ -151,21 +152,43 @@ public class FrmEmpleados extends JFrame {
         lblEmail.setFont(customFont);
         panel.add(lblEmail);
 
+        lblAviso = new JLabel("Email no Válido");
+        lblAviso.setBounds(455, 245, 300, 20);
+        lblAviso.setForeground(new java.awt.Color(255, 51, 51));
+        lblAviso.setFont(customFont);
+        lblAviso.setVisible(false);
+        panel.add(lblAviso);
+
         txtEmail = new JTextField();
         txtEmail.setBounds(210, 243, 245, 28);
         txtEmail.setFont(customFont);
         panel.add(txtEmail);
 
-        txtEmail.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-                if (txtEmail.getText().contains("@") && txtEmail.getText().contains(".")) {
-                    cambiarFoco("txtEmail");
-                } else {
-                    JOptionPane.showMessageDialog(null, "El correo no es válido", "Error de Captura!",
-                            JOptionPane.ERROR_MESSAGE);
-                    txtEmail.requestFocus();
+        txtEmail.addKeyListener(new KeyListener() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                ValidaEmail checaemail = new ValidaEmail();
+                if (e.getKeyChar() == '\n') {
+
+                    if (checaemail.verificaEmail(txtEmail.getText())) {
+                        lblAviso.setVisible(false);
+                        dateChooser.requestFocus();
+                    } else {
+                        lblAviso.setVisible(true);
+                        txtEmail.requestFocus();
+                    }
                 }
             }
         });
@@ -207,7 +230,8 @@ public class FrmEmpleados extends JFrame {
                 java.util.Date utilDate = dateChooser.getDate();
                 java.sql.Date fecha = new java.sql.Date(utilDate.getTime());
                 Genero g = generoRepository.recuperarId((long) cboGenero.getSelectedIndex() + 1);
-                Empleado em = new Empleado(null, txtNombre.getText(), txtDomicilio.getText(), txtTelefono.getText(), txtEmail.getText(), fecha, g);
+                Empleado em = new Empleado(null, txtNombre.getText(), txtDomicilio.getText(), txtTelefono.getText(),
+                        txtEmail.getText(), fecha, g);
                 // System.out.println(em.getGenero().getNombre());
                 empleadoRepository.agregar(em);
                 llenacombo();
@@ -256,7 +280,7 @@ public class FrmEmpleados extends JFrame {
         cmdLimpiar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 limpiarControles(panel);
-                llenacombo();  // actualiza combo de numEmp
+                llenacombo(); // actualiza combo de numEmp
             }
         });
     } // Fin controles
@@ -301,8 +325,8 @@ public class FrmEmpleados extends JFrame {
         }
         txtNombre.requestFocus();
     }
-    
-    private void llenacombo(){
+
+    private void llenacombo() {
         cboNumEmp.removeAllItems();
         List<Empleado> listaEmp = empleadoRepository.recuperarTodos();
         for (Empleado empleado : listaEmp) {
@@ -310,4 +334,10 @@ public class FrmEmpleados extends JFrame {
         }
     }
 
+    // public boolean verificaEmail(String correo) {
+    //     Pattern patron = Pattern.compile("^[_a-z0-9-\\+]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9]+)*(\\.[a-z]{2,})$");
+
+    //     Matcher mat = patron.matcher(correo);
+    //     return mat.find();
+    // }
 } // Fin frmEmpleados
