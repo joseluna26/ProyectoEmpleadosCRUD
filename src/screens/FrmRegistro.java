@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,11 +23,12 @@ import javax.swing.SwingConstants;
 
 import db.repositorys.LoginRepository;
 import helpers.FontManager;
+import helpers.ValidaEmail;
 import models.Login;
 
 public class FrmRegistro extends JFrame {
 
-    JLabel lblTitulo, lblNombre, lblEmail, lblUsuario, lblContra;
+    JLabel lblTitulo, lblNombre, lblEmail, lblUsuario, lblContra, lblAviso;
     JTextField txtNombre, txtEmail, txtUsuario;
     JPasswordField txtContra;
     JButton cmdRegistrar;
@@ -94,7 +97,11 @@ public class FrmRegistro extends JFrame {
         txtNombre.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (!validaNombre(txtNombre.getText().trim())){
+                    JOptionPane.showMessageDialog(null, "El nombre solo\nDebe contener letras", "Error de Captura!", JOptionPane.ERROR_MESSAGE);
+                } else{
                 cambiarFoco("txtNombre");
+                }
             }
         });
 
@@ -108,11 +115,41 @@ public class FrmRegistro extends JFrame {
         txtEmail.setFont(defaultFont);
         panel.add(txtEmail);
 
-        txtEmail.addActionListener(new ActionListener() {
+        lblAviso = new JLabel("Email no Válido");
+        lblAviso.setBounds(180, 103, 300, 20);
+        lblAviso.setForeground(new java.awt.Color(255, 51, 51));
+        Font fontMensaje = FontManager.fontNeg(10);
+        lblAviso.setFont(fontMensaje);
+        lblAviso.setVisible(false);
+        panel.add(lblAviso);
+
+        txtEmail.addKeyListener(new KeyListener() {
+
             @Override
-            public void actionPerformed(ActionEvent e) {
-                cambiarFoco("txtEmail");
+            public void keyTyped(KeyEvent e) {
+
             }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                ValidaEmail checaemail = new ValidaEmail();
+                if (e.getKeyChar() == '\n') {
+
+                    if (checaemail.verificaEmail(txtEmail.getText())) {
+                        lblAviso.setVisible(false);
+                        cambiarFoco("txtEmail");
+                    } else {
+                        lblAviso.setVisible(true);
+                        txtEmail.requestFocus();
+                    }
+                }
+            }
+
         });
 
         lblUsuario = new JLabel("Usuario:", SwingConstants.LEFT);
@@ -163,17 +200,19 @@ public class FrmRegistro extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if (txtNombre.getText().isEmpty() || txtEmail.getText().isEmpty() || txtUsuario.getText().isEmpty() || txtContra.getPassword().length == 0) {
-                    JOptionPane.showMessageDialog(null, "Campos vacíos, no se insertó el Registro", "Error de captura!", JOptionPane.ERROR_MESSAGE);
+                if (txtNombre.getText().isEmpty() || txtEmail.getText().isEmpty() || txtUsuario.getText().isEmpty()
+                        || txtContra.getPassword().length == 0) {
+                    JOptionPane.showMessageDialog(null, "Campos vacíos, no se insertó el Registro", "Error de captura!",
+                            JOptionPane.ERROR_MESSAGE);
                     txtNombre.requestFocus();
                 } else {
-                    
+
                     LoginRepository loginRepository = new LoginRepository();
                     char[] passwordChars = txtContra.getPassword();
                     String pass = new String(passwordChars);
                     Login reg = new Login(null, txtNombre.getText(), txtEmail.getText(), txtUsuario.getText(), pass);
                     loginRepository.agregar(reg);
-                    
+
                     FrmLogin frmLogin = new FrmLogin();
                     frmLogin.setVisible(true);
                     dispose();
@@ -200,6 +239,10 @@ public class FrmRegistro extends JFrame {
             default:
                 break;
         }
+    }
+
+    public static boolean validaNombre(String nombre){
+        return nombre.matches("^[A-Za-z]*$");
     }
 
 }

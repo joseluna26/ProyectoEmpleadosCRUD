@@ -12,4 +12,10 @@ public class FontManager {
     public static Font getCustomFont(int size) {
         return new Font("Arial", Font.PLAIN, size);
     }
+
+
+
+    public static Font fontNeg(int size) {
+        return new Font("Arial", Font.BOLD, size);
+    }
 }

@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -129,11 +130,17 @@ public class FrmEmpleados extends JFrame {
         txtNombre.setFont(customFont);
         panel.add(txtNombre);
 
+        txtNombre.setToolTipText("Sólo letras");
+
         // Agregar KeyListener a txtNombre
         txtNombre.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (!validaNombre(txtNombre.getText().trim())){
+                    JOptionPane.showMessageDialog(null, "El nombre solo\nDebe contener letras", "Error de Captura!", JOptionPane.ERROR_MESSAGE);
+                } else{
                 cambiarFoco("txtNombre");
+                }
             }
         });
 
@@ -158,16 +165,22 @@ public class FrmEmpleados extends JFrame {
         lblTelefono.setBounds(116, 202, 300, 20);
         lblTelefono.setFont(customFont);
         panel.add(lblTelefono);
-
+        
         txtTelefono = new JTextField();
         txtTelefono.setBounds(210, 200, 245, 28);
         txtTelefono.setFont(customFont);
         panel.add(txtTelefono);
+        txtTelefono.setToolTipText("Sólo números");
 
+        
         txtTelefono.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cambiarFoco("txtTelefono");
+                if (!validaTelefono(txtTelefono.getText().trim())){
+                    JOptionPane.showMessageDialog(null, "Teléfono No Válido\nDeben ser 10 dígitos", "Error de Captura!", JOptionPane.ERROR_MESSAGE);
+                } else{
+                    cambiarFoco("txtTelefono");
+                };
             }
         });
 
@@ -304,6 +317,8 @@ public class FrmEmpleados extends JFrame {
                 lblAviso.setVisible(false);
             }
         });
+
+        
     } // Fin controles
 
     private void cambiarFoco(String nomcontrol) {
@@ -365,6 +380,14 @@ public class FrmEmpleados extends JFrame {
         for (Genero genero : listaGen) {
             cboGenero.addItem(genero.getNombre());
         }
+    }
+
+    public static boolean validaNombre(String nombre){
+        return nombre.matches("^[A-Za-z]*$");
+    }
+
+    public static boolean validaTelefono(String telefono){
+        return telefono.matches("^[0-9]{10}$");
     }
 
 } // Fin frmEmpleados
