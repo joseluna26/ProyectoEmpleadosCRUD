@@ -6,16 +6,12 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JOptionPane;
-
 import db.conexion.ConexionDB;
-import interfaces.RepositoryInterface;
 import models.Login;
 
-public class LoginRepository implements RepositoryInterface<Login> {
+public class LoginRepository {
 
-    @Override
     public Login recuperarId(Long id) {
         try (Connection conexion = ConexionDB.obtenerConexion()) {
             // Se desconecta cuando acaba el try
@@ -33,7 +29,6 @@ public class LoginRepository implements RepositoryInterface<Login> {
         return null;
     }
 
-    @Override
     public List<Login> recuperarTodos() {
         try (Connection conexion = ConexionDB.obtenerConexion()) {
             String q = "SELECT * FROM login";
@@ -57,7 +52,6 @@ public class LoginRepository implements RepositoryInterface<Login> {
         return null;
     }
 
-    @Override
     public void agregar(Login entidad) {
         try (Connection conexion = ConexionDB.obtenerConexion()) {
             String query = "INSERT INTO login VALUES(null, ?, ?, ?, ?);";
@@ -67,7 +61,8 @@ public class LoginRepository implements RepositoryInterface<Login> {
                 ps.setString(3, entidad.getUsuario());
                 ps.setString(4, entidad.getContrasenia());
                 ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Se insertó " + entidad.getNombre() + " correctamente", "éxito!", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Se insertó " + entidad.getNombre() + " correctamente", "éxito!",
+                        JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se insertó el Registro", "Error!", JOptionPane.ERROR_MESSAGE);
             }
@@ -76,39 +71,37 @@ public class LoginRepository implements RepositoryInterface<Login> {
         }
     }
 
-    @Override
-    public void modificar(Login entidad) {
-        try (Connection conexion = ConexionDB.obtenerConexion()) {
-            String q = "UPDATE login SET nombre = ? WHERE id = ?";
-            try (PreparedStatement preparedStatement = conexion.prepareStatement(q)) {
-                preparedStatement.setString(1, entidad.getNombre());
-                preparedStatement.setLong(2, entidad.getId());
-                preparedStatement.executeUpdate();
-                System.out.println("Se modificó el login");
-            } catch (Exception e) {
-                System.out.println("No se cambio nada del login");
-            }
-        } catch (Exception e) {
+    // public void modificar(Login entidad) {
+    // try (Connection conexion = ConexionDB.obtenerConexion()) {
+    // String q = "UPDATE login SET nombre = ? WHERE id = ?";
+    // try (PreparedStatement preparedStatement = conexion.prepareStatement(q)) {
+    // preparedStatement.setString(1, entidad.getNombre());
+    // preparedStatement.setLong(2, entidad.getId());
+    // preparedStatement.executeUpdate();
+    // System.out.println("Se modificó el login");
+    // } catch (Exception e) {
+    // System.out.println("No se cambio nada del login");
+    // }
+    // } catch (Exception e) {
 
-        }
-    }
+    // }
+    // }
 
-    @Override
-    public void eliminar(Login entidad) {
-        try (Connection conexion = ConexionDB.obtenerConexion()) {
-            String q = "DELETE FROM login WHERE id = ?";
-            try (PreparedStatement preparedStatement = conexion.prepareStatement(q)) {
+    // public void eliminar(Login entidad) {
+    // try (Connection conexion = ConexionDB.obtenerConexion()) {
+    // String q = "DELETE FROM login WHERE id = ?";
+    // try (PreparedStatement preparedStatement = conexion.prepareStatement(q)) {
 
-                preparedStatement.setLong(1, entidad.getId());
-                preparedStatement.executeUpdate();
-                System.out.println("Se eliminó login");
-            } catch (Exception e) {
-                System.out.println("No Se pudo borrar login");
-            }
-        } catch (Exception e) {
+    // preparedStatement.setLong(1, entidad.getId());
+    // preparedStatement.executeUpdate();
+    // System.out.println("Se eliminó login");
+    // } catch (Exception e) {
+    // System.out.println("No Se pudo borrar login");
+    // }
+    // } catch (Exception e) {
 
-        }
-    }
+    // }
+    // }
 
     private Login dameEntidadResultSet(ResultSet resultSet) {
         Long id = null;

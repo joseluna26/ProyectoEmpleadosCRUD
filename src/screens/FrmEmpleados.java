@@ -13,6 +13,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -40,12 +43,16 @@ public class FrmEmpleados extends JFrame {
     JButton cmdBuscar, cmdGuardar, cmdModificar, cmdEliminar, cmdLimpiar;
     JDateChooser dateChooser;
 
+    JMenuBar barraMenu;
+    JMenu mnuArchivo;
+    JMenuItem miSalir;
+
     public FrmEmpleados() {
 
         // Ventana
         super("Control de Empleados");
         setSize(600, 500);
-        // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         Image icono = new ImageIcon(getClass().getResource("/images/login.png")).getImage();
@@ -63,6 +70,25 @@ public class FrmEmpleados extends JFrame {
         panel.setLayout(null);
 
         Font customFont = FontManager.getCustomFont(18);
+
+        barraMenu = new JMenuBar();
+        setJMenuBar(barraMenu);
+        mnuArchivo = new JMenu("Arhivo");
+        miSalir = new JMenuItem("Salir");
+        barraMenu.add(mnuArchivo);
+        mnuArchivo.add(miSalir);
+
+        miSalir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == miSalir) {
+                    FrmLogin frmLogin = new FrmLogin();
+                    frmLogin.setVisible(true);
+                    dispose();
+                }
+            }
+        });
+
         lblTitulo = new JLabel("Empleados", SwingConstants.CENTER);
         lblTitulo.setBounds(0, 12, 600, 20);
         lblTitulo.setFont(customFont);
@@ -77,7 +103,7 @@ public class FrmEmpleados extends JFrame {
         cboNumEmp.setBounds(210, 63, 120, 30);
         cboNumEmp.setFont(customFont);
         panel.add(cboNumEmp);
-        llenacombo();
+        // llenacombo();
 
         cmdBuscar = new JButton("Buscar");
         cmdBuscar.setBounds(340, 63, 112, 30);
@@ -88,7 +114,6 @@ public class FrmEmpleados extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(cboNumEmp.getSelectedItem());
                 Empleado em = empleadoRepository.recuperarId(Long.parseLong(cboNumEmp.getSelectedItem().toString()));
                 llenarCamposEmpleado(em);
             }
@@ -154,7 +179,8 @@ public class FrmEmpleados extends JFrame {
         lblAviso = new JLabel("Email no Válido");
         lblAviso.setBounds(455, 245, 300, 20);
         lblAviso.setForeground(new java.awt.Color(255, 51, 51));
-        lblAviso.setFont(customFont);
+        Font fontMensaje = FontManager.getCustomFont(14);
+        lblAviso.setFont(fontMensaje);
         lblAviso.setVisible(false);
         panel.add(lblAviso);
 
@@ -211,15 +237,11 @@ public class FrmEmpleados extends JFrame {
         cboGenero.setFont(customFont);
         panel.add(cboGenero);
 
-        List<Genero> listaGen = generoRepository.recuperarTodos();
-        for (Genero genero : listaGen) {
-            cboGenero.addItem(genero.getNombre());
-        }
-
         cmdGuardar = new JButton("Guardar");
         cmdGuardar.setBounds(35, 383, 110, 35);
         cmdGuardar.setFont(customFont);
         panel.add(cmdGuardar);
+        llenacombos();
 
         cmdGuardar.addActionListener(new ActionListener() {
             @Override
@@ -232,7 +254,7 @@ public class FrmEmpleados extends JFrame {
                         txtEmail.getText(), fecha, g);
                 // System.out.println(em.getGenero().getNombre());
                 empleadoRepository.agregar(em);
-                llenacombo();
+                llenacombos();
             }
         });
 
@@ -265,7 +287,7 @@ public class FrmEmpleados extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Empleado em = empleadoRepository.recuperarId(Long.parseLong(cboNumEmp.getSelectedItem().toString()));
                 empleadoRepository.eliminar(em);
-                llenacombo();
+                llenacombos();
             }
         });
 
@@ -278,7 +300,8 @@ public class FrmEmpleados extends JFrame {
         cmdLimpiar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 limpiarControles(panel);
-                llenacombo(); // actualiza combo de numEmp
+                llenacombos(); // actualiza combo de numEmp
+                lblAviso.setVisible(false);
             }
         });
     } // Fin controles
@@ -320,23 +343,27 @@ public class FrmEmpleados extends JFrame {
             if (panel.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
                 caja = (JTextField) panel.getComponent(i);
                 caja.setText(null);
-                // Pone la fecha actual en el dateChooser
-                LocalDate fechaActual = LocalDate.now();
-                Date fechaActualDate = java.sql.Date.valueOf(fechaActual);
-                dateChooser.setDate(fechaActualDate);
-
-                
-                
             }
         }
+        // Pone la fecha actual en el dateChooser
+        LocalDate fechaActual = LocalDate.now();
+        Date fechaActualDate = java.sql.Date.valueOf(fechaActual);
+        dateChooser.setDate(fechaActualDate);
+        cboGenero.setSelectedIndex(0);
         txtNombre.requestFocus();
     }
 
-    private void llenacombo() {
+    private void llenacombos() {
         cboNumEmp.removeAllItems();
         List<Empleado> listaEmp = empleadoRepository.recuperarTodos();
         for (Empleado empleado : listaEmp) {
             cboNumEmp.addItem(empleado.getId());
+        }
+
+        cboGenero.removeAllItems();
+        List<Genero> listaGen = generoRepository.recuperarTodos();
+        for (Genero genero : listaGen) {
+            cboGenero.addItem(genero.getNombre());
         }
     }
 

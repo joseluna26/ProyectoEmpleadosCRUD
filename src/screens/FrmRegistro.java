@@ -9,6 +9,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -27,6 +30,10 @@ public class FrmRegistro extends JFrame {
     JPasswordField txtContra;
     JButton cmdRegistrar;
     JRadioButton radContra;
+
+    JMenuBar barraMenu;
+    JMenu mnuArchivo;
+    JMenuItem miSalir;
 
     public FrmRegistro() {
 
@@ -50,6 +57,25 @@ public class FrmRegistro extends JFrame {
         panel.setLayout(null);
 
         Font defaultFont = FontManager.getDefaultFont();
+
+        barraMenu = new JMenuBar();
+        setJMenuBar(barraMenu);
+        mnuArchivo = new JMenu("Arhivo");
+        miSalir = new JMenuItem("Salir");
+        barraMenu.add(mnuArchivo);
+        mnuArchivo.add(miSalir);
+
+        miSalir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == miSalir) {
+                    FrmLogin frmLogin = new FrmLogin();
+                    frmLogin.setVisible(true);
+                    dispose();
+                }
+            }
+        });
+
         lblTitulo = new JLabel("Registro", SwingConstants.CENTER);
         lblTitulo.setBounds(0, 12, 300, 20);
         lblTitulo.setFont(defaultFont);
@@ -68,7 +94,6 @@ public class FrmRegistro extends JFrame {
         txtNombre.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                validaCamposVacios();
                 cambiarFoco("txtNombre");
             }
         });
@@ -86,7 +111,6 @@ public class FrmRegistro extends JFrame {
         txtEmail.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                validaCamposVacios();
                 cambiarFoco("txtEmail");
             }
         });
@@ -104,7 +128,6 @@ public class FrmRegistro extends JFrame {
         txtUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                validaCamposVacios();
                 cambiarFoco("txtUsuario");
             }
         });
@@ -122,7 +145,6 @@ public class FrmRegistro extends JFrame {
         txtContra.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                validaCamposVacios();
                 cambiarFoco("txtContra");
             }
         });
@@ -132,8 +154,8 @@ public class FrmRegistro extends JFrame {
         radContra.setFont(defaultFont);
         panel.add(radContra);
 
-        cmdRegistrar = new JButton("Salir");
-        cmdRegistrar.setBounds(150, 231, 110, 25);
+        cmdRegistrar = new JButton("Registrar");
+        cmdRegistrar.setBounds(150, 210, 110, 25);
         cmdRegistrar.setFont(defaultFont);
         panel.add(cmdRegistrar);
 
@@ -143,9 +165,7 @@ public class FrmRegistro extends JFrame {
 
                 if (txtNombre.getText().isEmpty() || txtEmail.getText().isEmpty() || txtUsuario.getText().isEmpty() || txtContra.getPassword().length == 0) {
                     JOptionPane.showMessageDialog(null, "Campos vacíos, no se insertó el Registro", "Error de captura!", JOptionPane.ERROR_MESSAGE);
-                    FrmLogin frmLogin = new FrmLogin();
-                    frmLogin.setVisible(true);
-                    dispose();
+                    txtNombre.requestFocus();
                 } else {
                     
                     LoginRepository loginRepository = new LoginRepository();
@@ -153,6 +173,7 @@ public class FrmRegistro extends JFrame {
                     String pass = new String(passwordChars);
                     Login reg = new Login(null, txtNombre.getText(), txtEmail.getText(), txtUsuario.getText(), pass);
                     loginRepository.agregar(reg);
+                    
                     FrmLogin frmLogin = new FrmLogin();
                     frmLogin.setVisible(true);
                     dispose();
@@ -160,10 +181,6 @@ public class FrmRegistro extends JFrame {
             }
         });
 
-        // if (txtNombre.getText().isEmpty() || txtEmail.getText().isEmpty() || txtUsuario.getText().isEmpty() || txtContra.getPassword().length == 0) {
-
-        //     cmdRegistrar.setText("Salir");
-        // }
     }
 
     private void cambiarFoco(String nomcontrol) {
@@ -185,12 +202,4 @@ public class FrmRegistro extends JFrame {
         }
     }
 
-    private void validaCamposVacios(){
-        if (txtNombre.getText().isEmpty() || txtEmail.getText().isEmpty() || txtUsuario.getText().isEmpty() || txtContra.getPassword().length == 0) {
-
-            cmdRegistrar.setText("Salir");
-        } else {
-            cmdRegistrar.setText("Registrar");
-        }
-    }
 }

@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -78,7 +79,14 @@ public class FrmLogin extends JFrame {
         txtContra.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cmdIniciar.requestFocus();
+
+                if (!txtUsuario.getText().isEmpty() && txtContra.getPassword().length != 0) {
+                    cmdIniciar.setEnabled(true);
+                    cmdIniciar.requestFocus();
+                }else {
+                    JOptionPane.showMessageDialog(null, "Para iniciar sesión,\nambos campos son obligatorios", "Error de Captura!", JOptionPane.ERROR_MESSAGE);
+                    txtUsuario.requestFocus();
+                }
             }
         });
 
@@ -86,12 +94,13 @@ public class FrmLogin extends JFrame {
         cmdIniciar.setBounds(5, 125, 130, 25);
         cmdIniciar.setFont(defaultFont);
         panel.add(cmdIniciar);
-        // cmdIniciar.setEnabled(false);
+        cmdIniciar.setEnabled(false);
 
         cmdIniciar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 FrmEmpleados fraEmpleados = new FrmEmpleados();
                 fraEmpleados.setVisible(true);
+                dispose();
             }
         });
 
