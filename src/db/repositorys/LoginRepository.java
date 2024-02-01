@@ -62,7 +62,6 @@ public class LoginRepository {
                 ps.setString(3, entidad.getUsuario());
                 String pass = entidad.getContrasenia();
                 ps.setString(4, Password.encriptar(pass));
-                // ps.setString(4, entidad.getContrasenia());
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Se insertó " + entidad.getNombre() + " correctamente", "éxito!",
                         JOptionPane.INFORMATION_MESSAGE);

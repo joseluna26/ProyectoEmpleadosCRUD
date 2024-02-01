@@ -68,6 +68,8 @@ public class App {
         // System.out.println("nombre: " + empleado.getNombre());
         // }
 
+
+
         // Agregar Login //
         // LoginRepository loginRepository = new LoginRepository();
         // Login l1 = new Login(null, "Manuel", "manuel@gmail.com", "manuel_luna", "641016");
@@ -91,6 +93,8 @@ public class App {
         // lo.setUsuario("lunavm");
         // loginRepository.modificar(lo);
 
+
+        
         // Recuperar login TODOS //
         // LoginRepository loginRepository = new LoginRepository();
         // List<Login> lista = loginRepository.recuperarTodos();

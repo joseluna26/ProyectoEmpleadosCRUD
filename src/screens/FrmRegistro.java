@@ -242,7 +242,7 @@ public class FrmRegistro extends JFrame {
     }
 
     public static boolean validaNombre(String nombre){
-        return nombre.matches("^[A-Za-z]*$");
+        return nombre.matches("^[A-Za-záéíóúÁÉÍÓÚñÑ ]*$");
     }
 
 }

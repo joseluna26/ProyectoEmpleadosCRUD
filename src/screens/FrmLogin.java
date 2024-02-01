@@ -104,8 +104,6 @@ public class FrmLogin extends JFrame {
             }
         });
 
-        
-
         cmdRegistrar = new JButton("Registrar");
         cmdRegistrar.setBounds(145, 125, 130, 25);
         cmdRegistrar.setFont(defaultFont);
