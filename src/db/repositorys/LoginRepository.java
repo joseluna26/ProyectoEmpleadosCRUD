@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import db.conexion.ConexionDB;
+import helpers.Password;
 import models.Login;
 
 public class LoginRepository {
@@ -59,7 +60,9 @@ public class LoginRepository {
                 ps.setString(1, entidad.getNombre());
                 ps.setString(2, entidad.getEmail());
                 ps.setString(3, entidad.getUsuario());
-                ps.setString(4, entidad.getContrasenia());
+                String pass = entidad.getContrasenia();
+                ps.setString(4, Password.encriptar(pass));
+                // ps.setString(4, entidad.getContrasenia());
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Se insertó " + entidad.getNombre() + " correctamente", "éxito!",
                         JOptionPane.INFORMATION_MESSAGE);

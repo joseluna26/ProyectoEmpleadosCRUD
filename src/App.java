@@ -19,8 +19,6 @@ public class App {
     public static void main(String[] args) throws Exception {
         new FrmLogin();
 
-
-        
         // GeneroRepository generoRepository = new GeneroRepository();
         // Genero g1 = new Genero(null, "Drag queen");
         // Genero g2 = new Genero(null, "Masculino");

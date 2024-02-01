@@ -98,7 +98,7 @@ public class FrmRegistro extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!validaNombre(txtNombre.getText().trim())){
-                    JOptionPane.showMessageDialog(null, "El nombre solo\nDebe contener letras", "Error de Captura!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El nombre solo\ndebe contener letras", "Error de Captura!", JOptionPane.ERROR_MESSAGE);
                 } else{
                 cambiarFoco("txtNombre");
                 }
