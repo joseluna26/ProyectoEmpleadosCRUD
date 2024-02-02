@@ -191,6 +191,17 @@ public class FrmRegistro extends JFrame {
         radContra.setFont(defaultFont);
         panel.add(radContra);
 
+        radContra.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                char[] passwordChars = txtContra.getPassword();
+                    String pass = new String(passwordChars);
+                    JOptionPane.showMessageDialog(null, "Contraseña: " + pass);
+                    radContra.setSelected(false);
+            }
+        });
+        
+
         cmdRegistrar = new JButton("Registrar");
         cmdRegistrar.setBounds(150, 210, 110, 25);
         cmdRegistrar.setFont(defaultFont);
@@ -202,7 +213,7 @@ public class FrmRegistro extends JFrame {
 
                 if (txtNombre.getText().isEmpty() || txtEmail.getText().isEmpty() || txtUsuario.getText().isEmpty()
                         || txtContra.getPassword().length == 0) {
-                    JOptionPane.showMessageDialog(null, "Campos vacíos, no se insertó el Registro", "Error de captura!",
+                    JOptionPane.showMessageDialog(null, "Hay campos vacíos, no se insertó el Registro", "Error de captura!",
                             JOptionPane.ERROR_MESSAGE);
                     txtNombre.requestFocus();
                 } else {
