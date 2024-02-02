@@ -13,7 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import db.repositorys.UsuarioRepository;
 import helpers.FontManager;
+import helpers.Password;
+import models.Login;
 
 public class FrmLogin extends JFrame {
 
@@ -83,7 +87,7 @@ public class FrmLogin extends JFrame {
                 if (!txtUsuario.getText().isEmpty() && txtContra.getPassword().length != 0) {
                     cmdIniciar.setEnabled(true);
                     cmdIniciar.requestFocus();
-                }else {
+                } else {
                     JOptionPane.showMessageDialog(null, "Para iniciar sesión,\nambos campos son obligatorios", "Error de Captura!", JOptionPane.ERROR_MESSAGE);
                     txtUsuario.requestFocus();
                 }
@@ -98,9 +102,28 @@ public class FrmLogin extends JFrame {
 
         cmdIniciar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                FrmEmpleados fraEmpleados = new FrmEmpleados();
-                fraEmpleados.setVisible(true);
-                dispose();
+                UsuarioRepository usuarioRepository = new UsuarioRepository();
+                Login us = usuarioRepository.recuperarUsuario(txtUsuario.getText());
+                char[] pass = txtContra.getPassword();
+                String password = new String(pass);
+
+                try {
+                    (txtUsuario.getText().trim()).equals(us.getUsuario().trim());
+                    if (Password.checapass(password, us.getContrasenia()) == true) {
+
+                        FrmEmpleados fraEmpleados = new FrmEmpleados();
+                        fraEmpleados.setVisible(true);
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error en la Contraseña", "Error de Captura!", JOptionPane.ERROR_MESSAGE);
+                        cmdIniciar.setEnabled(false);
+                        txtContra.requestFocus();
+                    }
+                } catch (Exception error) {
+                    JOptionPane.showMessageDialog(null, "Usuario no existe!", "Error de Captura!", JOptionPane.ERROR_MESSAGE);
+                    cmdIniciar.setEnabled(false);
+                    txtUsuario.requestFocus();
+                }
             }
         });
 
@@ -120,4 +143,4 @@ public class FrmLogin extends JFrame {
 
     } // fin controles
 
-}  // Fin FrmLogin
+} // Fin FrmLogin

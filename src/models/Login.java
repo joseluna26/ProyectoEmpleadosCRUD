@@ -7,10 +7,21 @@ public class Login {
     private String email;
     private String usuario;
     private String contrasenia;
+
     
+    
+    public Login(String usuario) {
+        this.usuario = usuario;
+    }
+
     public Login(Long id, String nombre) {
         this.id = id;
         this.nombre = nombre;
+    }
+
+    public Login(String usuario, String contrasenia) {
+        this.usuario = usuario;
+        this.contrasenia = contrasenia;
     }
 
     public Login(Long id, String nombre, String email, String usuario, String contrasenia) {
@@ -61,7 +72,9 @@ public class Login {
         this.contrasenia = contrasenia;
     }
 
-    
-    
+    @Override
+    public String toString() {
+        return "Login [usuario=" + usuario + ", contrasenia=" + contrasenia + "]";
+    }
 
 }

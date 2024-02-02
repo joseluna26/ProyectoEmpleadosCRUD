@@ -12,7 +12,7 @@ public class Password {
     }
 
 
-    public boolean checapass(String cadena, String passencriptada) {
+    public static boolean checapass(String cadena, String passencriptada) {
 
         if (BCrypt.checkpw(cadena, passencriptada)) {
 
