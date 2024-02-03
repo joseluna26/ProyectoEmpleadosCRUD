@@ -110,12 +110,15 @@ public class FrmEmpleados extends JFrame {
         cmdBuscar.setBounds(340, 63, 112, 30);
         cmdBuscar.setFont(customFont);
         panel.add(cmdBuscar);
-
+        
         cmdBuscar.addActionListener(new ActionListener() {
-
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 Empleado em = empleadoRepository.recuperarId(Long.parseLong(cboNumEmp.getSelectedItem().toString()));
+                cmdModificar.setEnabled(true);
+                cmdEliminar.setEnabled(true);
+                cmdGuardar.setEnabled(false);
                 llenarCamposEmpleado(em);
             }
         });
@@ -260,6 +263,12 @@ public class FrmEmpleados extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                if (txtNombre.getText().isEmpty() || txtDomicilio.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtEmail.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Hay campos vacíos, no se insertó el Registro", "Error de captura!",
+                            JOptionPane.ERROR_MESSAGE);
+                    txtNombre.requestFocus();
+                } else {
+
                 java.util.Date utilDate = dateChooser.getDate();
                 java.sql.Date fecha = new java.sql.Date(utilDate.getTime());
                 Genero g = generoRepository.recuperarId((long) cboGenero.getSelectedIndex() + 1);
@@ -268,6 +277,7 @@ public class FrmEmpleados extends JFrame {
                 // System.out.println(em.getGenero().getNombre());
                 empleadoRepository.agregar(em);
                 llenacombos();
+                }
             }
         });
 
@@ -314,11 +324,18 @@ public class FrmEmpleados extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 limpiarControles(panel);
                 llenacombos(); // actualiza combo de numEmp
+
+                cmdModificar.setEnabled(false);
+                cmdEliminar.setEnabled(false);
+                cmdGuardar.setEnabled(true);
                 lblAviso.setVisible(false);
             }
         });
 
-        
+        cmdGuardar.setEnabled(true);
+        cmdModificar.setEnabled(false);
+        cmdEliminar.setEnabled(false);
+
     } // Fin controles
 
     private void cambiarFoco(String nomcontrol) {

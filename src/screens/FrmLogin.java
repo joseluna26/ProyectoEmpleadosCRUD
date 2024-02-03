@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
 import db.repositorys.UsuarioRepository;
 import helpers.FontManager;
 import helpers.Password;
@@ -36,7 +35,6 @@ public class FrmLogin extends JFrame {
         Image icono = new ImageIcon(getClass().getResource("/images/login.png")).getImage();
         setIconImage(icono);
         controles();
-
         setVisible(true);
     }
 
@@ -86,6 +84,7 @@ public class FrmLogin extends JFrame {
 
                 if (!txtUsuario.getText().isEmpty() && txtContra.getPassword().length != 0) {
                     cmdIniciar.setEnabled(true);
+                    cmdRegistrar.setEnabled(false);
                     cmdIniciar.requestFocus();
                 } else {
                     JOptionPane.showMessageDialog(null, "Para iniciar sesión,\nambos campos son obligatorios", "Error de Captura!", JOptionPane.ERROR_MESSAGE);

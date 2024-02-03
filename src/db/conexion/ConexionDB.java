@@ -11,9 +11,22 @@ public class ConexionDB {
     private static int port = 3306;
     private static String url = "jdbc:mysql://localhost:" + port + "/" + db;
 
+    // private static ConexionDB instancia;
+
+
+    // ConexionDB conectar = ConexionDB.getInstance();
+
     private ConexionDB() {
-        // Constructor privado patrón singleton
+        //!  Constructor privado patrón singleton
     }
+
+    // public static ConexionDB getInstance() {
+
+    //     if (instancia == null) {
+    //         instancia = new ConexionDB();
+    //     }
+    //     return instancia;
+    // }
 
     public static Connection obtenerConexion() {
         try {

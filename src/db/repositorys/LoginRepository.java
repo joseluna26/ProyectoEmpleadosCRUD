@@ -11,9 +11,14 @@ import db.conexion.ConexionDB;
 import helpers.Password;
 import models.Login;
 
+
 public class LoginRepository {
+    
+    // ConexionDB conexion = ConexionDB.getInstance();
+
 
     public Login recuperarId(Long id) {
+        
         try (Connection conexion = ConexionDB.obtenerConexion()) {
             // Se desconecta cuando acaba el try
             String q = "SELECT * FROM login WHERE id = ?";

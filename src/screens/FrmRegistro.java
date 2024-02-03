@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,7 +19,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
 import db.repositorys.LoginRepository;
 import helpers.FontManager;
 import helpers.ValidaEmail;
@@ -149,7 +147,6 @@ public class FrmRegistro extends JFrame {
                     }
                 }
             }
-
         });
 
         lblUsuario = new JLabel("Usuario:", SwingConstants.LEFT);
@@ -196,11 +193,10 @@ public class FrmRegistro extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 char[] passwordChars = txtContra.getPassword();
                     String pass = new String(passwordChars);
-                    JOptionPane.showMessageDialog(null, "Contraseña: " + pass);
+                    JOptionPane.showMessageDialog(null, "Contraseña: " + pass, "Clave de usuario", JOptionPane.INFORMATION_MESSAGE);
                     radContra.setSelected(false);
             }
         });
-        
 
         cmdRegistrar = new JButton("Registrar");
         cmdRegistrar.setBounds(150, 210, 110, 25);
@@ -230,7 +226,6 @@ public class FrmRegistro extends JFrame {
                 }
             }
         });
-
     }
 
     private void cambiarFoco(String nomcontrol) {
@@ -255,5 +250,4 @@ public class FrmRegistro extends JFrame {
     public static boolean validaNombre(String nombre){
         return nombre.matches("^[A-Za-záéíóúÁÉÍÓÚñÑ ]*$");
     }
-
 }

@@ -17,6 +17,8 @@ import models.Genero;
 
 public class EmpleadoRepository implements RepositoryInterface<Empleado> {
 
+    // ConexionDB conexion = ConexionDB.getInstance();
+
     @Override
     public Empleado recuperarId(Long id) {
         try (Connection conexion = ConexionDB.obtenerConexion()) {

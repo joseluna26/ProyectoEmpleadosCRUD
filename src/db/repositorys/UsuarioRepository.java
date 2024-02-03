@@ -3,14 +3,14 @@ package db.repositorys;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import javax.swing.JOptionPane;
-
 import db.conexion.ConexionDB;
 import interfaces.RepositoryRegistro;
 import models.Login;
 
 public class UsuarioRepository implements RepositoryRegistro<Login> {
+    
+    // ConexionDB conexion = ConexionDB.getInstance();
 
     @Override
     public Login recuperarUsuario(String usuario) {
@@ -53,5 +53,4 @@ public class UsuarioRepository implements RepositoryRegistro<Login> {
         }
         return null;
     }
-
 }

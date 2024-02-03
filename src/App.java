@@ -1,19 +1,4 @@
-
-// import db.repositorys.EmpleadoRepository;
-// import java.util.List;
-
-// import db.repositorys.LoginRepository;
-// import db.repositorys.GeneroRepository;
-// import models.Empleado;
-// import models.Genero;
-// import models.Login;
-
-
-// import javax.swing.SwingUtilities;
-
-// import screens.FraEmpleados;
 import screens.FrmLogin;
-// import screens.FraRegistro;
 
 public class App {
     public static void main(String[] args) throws Exception {

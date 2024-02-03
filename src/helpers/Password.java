@@ -11,7 +11,6 @@ public class Password {
         return passencriptada;
     }
 
-
     public static boolean checapass(String cadena, String passencriptada) {
 
         if (BCrypt.checkpw(cadena, passencriptada)) {
@@ -23,5 +22,4 @@ public class Password {
             return false;
         }
     }
-
 }
