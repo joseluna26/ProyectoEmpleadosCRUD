@@ -17,8 +17,7 @@ import models.Genero;
 
 public class EmpleadoRepository implements RepositoryInterface<Empleado> {
 
-    // ConexionDB conexion = ConexionDB.getInstance();
-
+    GeneroRepository generoRepository = new GeneroRepository();
     @Override
     public Empleado recuperarId(Long id) {
         try (Connection conexion = ConexionDB.obtenerConexion()) {
@@ -140,7 +139,8 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
                 telefono = resultSet.getString("telefono");
                 email = resultSet.getString("email");
                 fecnac = resultSet.getDate("fecha_nacimiento");
-                // genero = resultSet.getLong("id_Genero");
+                genero = generoRepository.recuperarId(resultSet.getLong("id_Genero"));
+                // System.out.println("Genero dameEntidadResultSet: "+genero.getId());
                 
             }
             return new Empleado(idEmpleado, nombre, domicilio, telefono, email, fecnac, genero);

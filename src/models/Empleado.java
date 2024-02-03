@@ -27,6 +27,11 @@ public class Empleado {
         this.genero = genero;
     }
 
+    public Empleado(Integer idEmpleado2, String nombre2, String domicilio2, String telefono2, String email2,
+            java.sql.Date fecnac, Long genero2) {
+        //TODO Auto-generated constructor stub
+    }
+
     public Integer getId() {
         return idEmpleado;
     }

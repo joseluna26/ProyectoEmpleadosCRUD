@@ -116,11 +116,13 @@ public class FrmLogin extends JFrame {
                     } else {
                         JOptionPane.showMessageDialog(null, "Error en la Contraseña", "Error de Captura!", JOptionPane.ERROR_MESSAGE);
                         cmdIniciar.setEnabled(false);
+                        cmdRegistrar.setEnabled(true);
                         txtContra.requestFocus();
                     }
                 } catch (Exception error) {
                     JOptionPane.showMessageDialog(null, "Usuario no existe!", "Error de Captura!", JOptionPane.ERROR_MESSAGE);
                     cmdIniciar.setEnabled(false);
+                    cmdRegistrar.setEnabled(true);
                     txtUsuario.requestFocus();
                 }
             }

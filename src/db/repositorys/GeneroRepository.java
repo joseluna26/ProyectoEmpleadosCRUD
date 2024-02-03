@@ -12,9 +12,6 @@ import interfaces.RepositoryInterface;
 import models.Genero;
 
 public class GeneroRepository implements RepositoryInterface<Genero> {
-
-    // ConexionDB conexion = ConexionDB.getInstance();
-
     @Override
     public Genero recuperarId(Long i) {
         try (Connection conexion = ConexionDB.obtenerConexion()) {

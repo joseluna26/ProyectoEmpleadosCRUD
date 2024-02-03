@@ -13,10 +13,6 @@ import models.Login;
 
 
 public class LoginRepository {
-    
-    // ConexionDB conexion = ConexionDB.getInstance();
-
-
     public Login recuperarId(Long id) {
         
         try (Connection conexion = ConexionDB.obtenerConexion()) {

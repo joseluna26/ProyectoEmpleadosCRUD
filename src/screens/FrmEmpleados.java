@@ -112,14 +112,15 @@ public class FrmEmpleados extends JFrame {
         panel.add(cmdBuscar);
         
         cmdBuscar.addActionListener(new ActionListener() {
-            
             @Override
             public void actionPerformed(ActionEvent e) {
                 Empleado em = empleadoRepository.recuperarId(Long.parseLong(cboNumEmp.getSelectedItem().toString()));
+
                 cmdModificar.setEnabled(true);
                 cmdEliminar.setEnabled(true);
                 cmdGuardar.setEnabled(false);
                 llenarCamposEmpleado(em);
+
             }
         });
 
@@ -310,6 +311,7 @@ public class FrmEmpleados extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Empleado em = empleadoRepository.recuperarId(Long.parseLong(cboNumEmp.getSelectedItem().toString()));
                 empleadoRepository.eliminar(em);
+                limpiarControles(panel);
                 llenacombos();
             }
         });
@@ -366,11 +368,13 @@ public class FrmEmpleados extends JFrame {
         txtTelefono.setText(em.getTelefono());
         txtEmail.setText(em.getEmail());
         dateChooser.setDate(em.getFechaNacimiento());
+        cboGenero.setSelectedIndex(em.getGenero().getId().intValue()-1);
+        
+        
     }
-
+    
     private void limpiarControles(Container panel) {
         JTextField caja;
-        // JDateChooser factual = new JDateChooser();
         for (int i = 0; i < panel.getComponentCount(); i++) {
             if (panel.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
                 caja = (JTextField) panel.getComponent(i);

@@ -9,9 +9,6 @@ import interfaces.RepositoryRegistro;
 import models.Login;
 
 public class UsuarioRepository implements RepositoryRegistro<Login> {
-    
-    // ConexionDB conexion = ConexionDB.getInstance();
-
     @Override
     public Login recuperarUsuario(String usuario) {
         try (Connection conexion = ConexionDB.obtenerConexion()) {
@@ -40,9 +37,6 @@ public class UsuarioRepository implements RepositoryRegistro<Login> {
                 usuario = resultSet.getString("usuario");
                 pass = resultSet.getString("contrasenia");
             }
-            System.out.println("Usuario desde UsuarioRepository: " + usuario);
-            System.out.println("Contraseña desde UsuarioRepository: " + pass);
-                
             if (usuario == null) {
                 return new Login(usuario);
             } else {
