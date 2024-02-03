@@ -24,6 +24,10 @@ import helpers.FontManager;
 import helpers.ValidaEmail;
 import models.Login;
 
+/**
+ * @author JoséLuis Luna 3/feb/2024
+ * @version 1.0
+ */
 public class FrmRegistro extends JFrame {
 
     JLabel lblTitulo, lblNombre, lblEmail, lblUsuario, lblContra, lblAviso;
@@ -228,6 +232,10 @@ public class FrmRegistro extends JFrame {
         });
     }
 
+    /**
+     * Asigna el foco a determinado control después de presionar enter
+     * @param nombre del control sobre el que se presiona enter
+     */
     private void cambiarFoco(String nomcontrol) {
         switch (nomcontrol) {
             case "txtNombre":
@@ -247,6 +255,11 @@ public class FrmRegistro extends JFrame {
         }
     }
 
+    /***
+     *  Valida el nombre con expresiones regulares
+     * @param nombre
+     * @return verdadero si el nombre solo incluye letras
+     */
     public static boolean validaNombre(String nombre){
         return nombre.matches("^[A-Za-záéíóúÁÉÍÓÚñÑ ]*$");
     }

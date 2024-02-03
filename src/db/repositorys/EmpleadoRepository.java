@@ -15,6 +15,10 @@ import interfaces.RepositoryInterface;
 import models.Empleado;
 import models.Genero;
 
+/***
+ *  CRUD de empleados
+ */
+
 public class EmpleadoRepository implements RepositoryInterface<Empleado> {
 
     GeneroRepository generoRepository = new GeneroRepository();
@@ -140,8 +144,6 @@ public class EmpleadoRepository implements RepositoryInterface<Empleado> {
                 email = resultSet.getString("email");
                 fecnac = resultSet.getDate("fecha_nacimiento");
                 genero = generoRepository.recuperarId(resultSet.getLong("id_Genero"));
-                // System.out.println("Genero dameEntidadResultSet: "+genero.getId());
-                
             }
             return new Empleado(idEmpleado, nombre, domicilio, telefono, email, fecnac, genero);
         } catch (Exception e) {

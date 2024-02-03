@@ -20,16 +20,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
-
 import db.repositorys.EmpleadoRepository;
 import db.repositorys.GeneroRepository;
 import helpers.FontManager;
 import helpers.ValidaEmail;
 import models.Empleado;
 import models.Genero;
+
+/**
+ * @author JoséLuis Luna 3/feb/2024
+ * @version 1.0
+ */
 
 public class FrmEmpleados extends JFrame {
 
@@ -48,6 +51,11 @@ public class FrmEmpleados extends JFrame {
     JMenu mnuArchivo;
     JMenuItem miSalir;
 
+    /***
+     *  Ventana de Registro de Empleados
+     *  CRUD 
+     */
+
     public FrmEmpleados() {
 
         // Ventana
@@ -59,7 +67,6 @@ public class FrmEmpleados extends JFrame {
         Image icono = new ImageIcon(getClass().getResource("/images/login.png")).getImage();
         setIconImage(icono);
         controles();
-
         setVisible(true);
     }
 
@@ -104,7 +111,6 @@ public class FrmEmpleados extends JFrame {
         cboNumEmp.setBounds(210, 63, 120, 30);
         cboNumEmp.setFont(customFont);
         panel.add(cboNumEmp);
-        // llenacombo();
 
         cmdBuscar = new JButton("Buscar");
         cmdBuscar.setBounds(340, 63, 112, 30);
@@ -120,7 +126,6 @@ public class FrmEmpleados extends JFrame {
                 cmdEliminar.setEnabled(true);
                 cmdGuardar.setEnabled(false);
                 llenarCamposEmpleado(em);
-
             }
         });
 
@@ -136,7 +141,7 @@ public class FrmEmpleados extends JFrame {
 
         txtNombre.setToolTipText("Sólo letras");
 
-        // Agregar KeyListener a txtNombre
+        // KeyListener es una interface, se deben implementar sus métodos aunque no se usen todos.
         txtNombre.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -176,7 +181,6 @@ public class FrmEmpleados extends JFrame {
         panel.add(txtTelefono);
         txtTelefono.setToolTipText("Sólo números");
 
-        
         txtTelefono.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -321,6 +325,11 @@ public class FrmEmpleados extends JFrame {
         cmdLimpiar.setFont(customFont);
         panel.add(cmdLimpiar);
 
+
+    /***
+     *  Limpia las cajas de texto y los combos de empleado y género los pone en el primer elemento
+     * 
+     */
         // Limpiar todas las cajas de texto
         cmdLimpiar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -362,6 +371,10 @@ public class FrmEmpleados extends JFrame {
         }
     }
 
+/***
+     *  Llena las cajas de texto con los datos recuperados
+     * @param empleado
+     */    
     private void llenarCamposEmpleado(Empleado em) {
         txtNombre.setText(em.getNombre());
         txtDomicilio.setText(em.getDomicilio());
@@ -369,8 +382,6 @@ public class FrmEmpleados extends JFrame {
         txtEmail.setText(em.getEmail());
         dateChooser.setDate(em.getFechaNacimiento());
         cboGenero.setSelectedIndex(em.getGenero().getId().intValue()-1);
-        
-        
     }
     
     private void limpiarControles(Container panel) {

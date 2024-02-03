@@ -18,6 +18,9 @@ import helpers.FontManager;
 import helpers.Password;
 import models.Login;
 
+    /***
+     *  Ventana de login, pide usuario y password
+     */
 public class FrmLogin extends JFrame {
 
     JLabel lblTitulo, lblUsuario, lblContra;
